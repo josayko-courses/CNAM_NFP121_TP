@@ -1,0 +1,11 @@
+// Configuration pour le plugin java
+// Ceci es tutilisé par le build.gradle por les cible "run" et 
+ext {
+     mainJavaClass = "question1.Main"
+}
+//ceci peut être utilisé plus bas
+project.ext.tpnum = "tp1"
+
+// On peut overrider une tâche comme ceci:
+//task foo(type: Jar, overwrite: true) { }
+
