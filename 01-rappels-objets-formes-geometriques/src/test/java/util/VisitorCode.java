@@ -39,6 +39,13 @@ public class VisitorCode extends org.apache.bcel.classfile.EmptyVisitor {
           infoClass.addCall(m, "#pop#");
         }
       }
+      if (vL.contains("anewarray")) {
+        String[] line = vL.split("\\s+");
+        if (line[1].equals(
+            "anewarray")) { // pour être sûr que le contains ne vient pas d'autre chose
+          infoClass.addCall(m, "#anewarray#");
+        }
+      }
       if (vL.contains("goto")) {
         String[] line = vL.split("\\s+");
         if (line[1].equals("goto")) { // pour être sûr que le contains ne vient pas d'autre chose
