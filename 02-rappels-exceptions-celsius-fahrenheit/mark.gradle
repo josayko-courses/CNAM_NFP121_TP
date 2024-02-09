@@ -1,0 +1,14 @@
+// Configuration pour le plugin java
+// Ceci es tutilisé par le build.gradle por les cible "run" et 
+ext {
+     mainJavaClass = "question3.IHMFahrenheit"
+}
+//ceci peut être utilisé plus bas
+project.ext.tpnum = "tp2"
+
+// On peut overrider une tâche comme ceci:
+//task foo(type: Jar, overwrite: true) { }
+
+dependencies {
+    testImplementation(files("testlib/ZTestOfficial.jar"))
+}
