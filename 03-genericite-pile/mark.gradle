@@ -1,0 +1,26 @@
+// Configuration pour le plugin java
+// Ceci es tutilisé par le build.gradle por les cible "run" et 
+ext {
+     mainJavaClass = "question3.UneUtilisation"
+}
+
+dependencies {
+    testImplementation(files("testlib/ZTestOfficial.jar"))
+}
+
+// "gradle squelClasses" n'essaiera pas de compiler les deux classes
+// qui ne compile pas intentionnellement
+sourceSets {
+  squel {
+        description = 'Compilation du squelette (sauf question1/UneUtilisation.java et question3/UneUtilisation.java).'
+    java {
+      source(sourceSets.main.java)
+      filter.exclude("**/question1/UneUtilisation.java")
+      filter.exclude("**/question3/UneUtilisation.java")
+    }
+  }
+}
+
+//ceci peut être utilisé plus bas
+project.ext.tpnum = "tp3"
+

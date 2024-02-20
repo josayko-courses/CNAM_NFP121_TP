@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NFP121 programmation avancée – TP3 – Les piles</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cedric.cnam.fr/~courtiep/nfp121/github_style.css" />
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">NFP121 programmation avancée – TP3 – Les piles</h1>
+</header>
+<!-- ### ![](https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/prerequis.png) <font color="red">OBSOLÈTE (IDE au choix)</font> Avoir installer la dernière version de BlueJ -->
+<!-- ### ![](https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/introduction.png) <font color="red">OBSOLÈTE (git)</font> Utilisation de BlueJ et soumission de vos travaux au CNAM -->
+<!-- - Télécharger l'archive `tp1.jar`, dans le répertoire de votre choix, -->
+<!-- par exemple `E:/tp_java/` -->
+<!-- - Lancer Bluej, puis dans le Menu `Projet`, choisir l'item `Open -->
+<!--   ZIP/JAR...`, sélectionnez cette archive `tp1.jar` -->
+<h2 id="java-11-junit4-git"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/prerequis.png" />
+Java 11, Junit4, Git</h2>
+<p>Utilisation de gradle et de git pour évaluer et soumettre un TP:</p>
+<ul>
+<li><p>clonez votre projet personnel si ce n’est pas déjà fait, sinon
+faites <code>git pull</code></p></li>
+<li><p>le tp se trouve dans le répertoire
+<code>&lt;projet personnel&gt;/03-...</code> ou bien
+<code>&lt;projet personnel&gt;/tp3</code></p></li>
+<li><p>l’énoncé est dans le répertoire
+<code>&lt;projet personnel&gt;/sujet/sujet_tp3.html</code></p></li>
+<li><p>lorsque vous voulez soumettre ou “tamponner” une version du TP,
+faites <code>git add &lt;les fichier à comiter&gt;</code>, puis
+<code>git commit -m   "message de commit"</code>, et enfin
+<code>git push</code>. N’oubliez pas: si l’archive distante a été
+modifiée (par exemple à cause d’un nouveau TP poussé par nos soins)
+alors le <code>git push</code> échouera il il faudra faire un
+<code>git pull</code> au préalable.</p></li>
+<li><p><mark>Dans ce TP il y a une classe (<code>UneUtilisation</code>)
+qui ne compile pas correctement au départ</mark>. C’est normal, vous
+devez comprendre pourquoi au court du TP et modifier la classe
+<code>Pile.java</code>. Au début vous pouvez juste commenter les
+instructions problématiques.</p></li>
+</ul>
+<hr>
+<h2 id="une-pile-dentiers-primitifs"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/introduction.png" />
+Une pile d’entiers primitifs</h2>
+<p>Soit la classe Pile d’entiers ci-dessous:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">final</span> <span class="dt">static</span> <span class="dt">int</span> TAILLE_PAR_DEFAUT <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span><span class="op">[]</span> zone<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">int</span> ptr<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">Pile</span><span class="op">(</span><span class="dt">int</span> taille<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>taille <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>            taille <span class="op">=</span> TAILLE_PAR_DEFAUT<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">zone</span> <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span>taille<span class="op">];</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">ptr</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">Pile</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">(</span>TAILLE_PAR_DEFAUT<span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">empiler</span><span class="op">(</span><span class="dt">int</span> i<span class="op">)</span> <span class="kw">throws</span> PilePleineException <span class="op">{</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span><span class="fu">estPleine</span><span class="op">())</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="fu">PilePleineException</span><span class="op">();</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">zone</span><span class="op">[</span><span class="kw">this</span><span class="op">.</span><span class="fu">ptr</span><span class="op">]</span> <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">ptr</span><span class="op">++;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">depiler</span><span class="op">()</span> <span class="kw">throws</span> PileVideException <span class="op">{</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span><span class="fu">estVide</span><span class="op">())</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> <span class="kw">new</span> <span class="fu">PileVideException</span><span class="op">();</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">ptr</span><span class="op">--;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> zone<span class="op">[</span>ptr<span class="op">];</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">estVide</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ptr <span class="op">==</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">estPleine</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ptr <span class="op">==</span> zone<span class="op">.</span><span class="fu">length</span><span class="op">;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">toString</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="bu">StringBuffer</span> sb <span class="op">=</span> <span class="kw">new</span> <span class="bu">StringBuffer</span><span class="op">(</span><span class="st">&quot;[&quot;</span><span class="op">);</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> ptr <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--)</span> <span class="op">{</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>            sb<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="bu">Integer</span><span class="op">.</span><span class="fu">toString</span><span class="op">(</span>zone<span class="op">[</span>i<span class="op">]));</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>i <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                sb<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="st">&quot;, &quot;</span><span class="op">);</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        sb<span class="op">.</span><span class="fu">append</span><span class="op">(</span><span class="st">&quot;]&quot;</span><span class="op">);</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> sb<span class="op">.</span><span class="fu">toString</span><span class="op">();</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr>
+<h2 id="une-pile-dobjects"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question1_1.png" />
+Une pile d’<code>Object</code>s</h2>
+<p>Les éléments de la classe <code>Pile</code> sont maintenant des
+instances de la classe <code>java.lang.Object</code> (classe racine de
+toute classe Java).</p>
+<p>Donc <code>private Object[] zone;</code> remplace
+<code>private int[] zone;</code></p>
+<p><mark>Modifiez (ne créez pas une autre classe) le code de la classe
+pile</mark> d’entiers pour obtenir une nouvelle version de la classe
+<code>Pile</code> et de la classe <code>IHMPile</code>.</p>
+<p>Aide au comportement attendu: <code>java -jar ihm.jar</code>.</p>
+<center>
+<img src="images/tp3.ht11.jpg" width="253" height="70" />
+</center>
+<p>Rappel: il vous faudra peut-être indiquer le chemin du sdk. Sous
+windows: <code>set PATH=%PATH%;C:\...\jdk\bin</code></p>
+<hr>
+<h2 id="vérifiez-la-classe-uneutilisation"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question1_2.png" />
+Vérifiez la classe <code>UneUtilisation</code></h2>
+<p>Soit la classe <code>UneUtilisation</code> ci-dessous (déjà présente
+dans le projet):</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> UneUtilisation <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        Pile p1 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Pile</span><span class="op">(</span><span class="dv">6</span><span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        Pile p2 <span class="op">=</span> <span class="kw">new</span> <span class="fu">Pile</span><span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// p1 est ici une pile de polygones réguliers PolygoneRegulier.java,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// entre autres</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        p1<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span><span class="kw">new</span> <span class="fu">PolygoneRegulier</span><span class="op">(</span><span class="dv">4</span><span class="op">,</span> <span class="dv">100</span><span class="op">));</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        p1<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span><span class="kw">new</span> <span class="fu">PolygoneRegulier</span><span class="op">(</span><span class="dv">5</span><span class="op">,</span> <span class="dv">100</span><span class="op">));</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        p1<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span><span class="st">&quot;polygone&quot;</span><span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        p1<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Integer</span><span class="op">(</span><span class="dv">100</span><span class="op">));</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot; la pile p1 = &quot;</span> <span class="op">+</span> p1<span class="op">);</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        p2<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span><span class="kw">new</span> <span class="bu">Integer</span><span class="op">(</span><span class="dv">1000</span><span class="op">));</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        p1<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span>p2<span class="op">);</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot; la p1 = &quot;</span> <span class="op">+</span> p1<span class="op">);</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            p1<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span><span class="kw">new</span> <span class="fu">PolygoneRegulier</span><span class="op">(</span><span class="dv">4</span><span class="op">,</span> <span class="dv">100</span><span class="op">));</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            <span class="co">// ....</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            <span class="bu">String</span> s <span class="op">=</span> <span class="op">(</span><span class="bu">String</span><span class="op">)</span> p1<span class="op">.</span><span class="fu">depiler</span><span class="op">();</span> <span class="co">// &lt;====== vérifiez qu&#39;une exception est levée à l&#39;exécution</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            e<span class="op">.</span><span class="fu">printStackTrace</span><span class="op">();</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><mark>Vérifiez seulement l’affichage produit et constatez l’exception
+résultante</mark>. À la question 3 de ce tp, avec l’usage de la
+généricité nous n’aurons plus cette erreur à l’exécution mais simplement
+une erreur de compilation.</p>
+<p>N’oubliez pas de pousser votre solution sur le serveur gitlab.</p>
+<hr>
+<h2 id="spécification-interface"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_1.png" />
+Spécification : Interface</h2>
+<p>Soit l’interface spécifiant le comportement d’une pile (fichier
+<code>PileI.java</code>):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> <span class="kw">package</span><span class="im"> question2</span><span class="op">;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">question1</span><span class="op">.</span><span class="im">PilePleineException</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">question1</span><span class="op">.</span><span class="im">PileVideException</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> PileI <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">final</span> <span class="dt">static</span> <span class="dt">int</span> CAPACITE_PAR_DEFAUT <span class="op">=</span> <span class="dv">6</span><span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">empiler</span><span class="op">(</span><span class="bu">Object</span> o<span class="op">)</span> <span class="kw">throws</span> PilePleineException<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">depiler</span><span class="op">()</span> <span class="kw">throws</span> PileVideException<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">Object</span> <span class="fu">sommet</span><span class="op">()</span> <span class="kw">throws</span> PileVideException<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">capacite</span><span class="op">();</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">taille</span><span class="op">();</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">estVide</span><span class="op">();</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">estPleine</span><span class="op">();</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">equals</span><span class="op">(</span><span class="bu">Object</span> o<span class="op">);</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">hashCode</span><span class="op">();</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">toString</span><span class="op">();</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><mark>Modifiez la classe <code>Pile</code> pour qu’elle implémente
+maintenant l’interface <code>PileI</code></mark>.</p>
+<p><strong>Attention</strong>: 5 nouvelles méthodes sont spécifiées dans
+<code>PileI</code> (capacité, taille, sommet, equals, et hashCode), et
+donc toute implémentation de cette interface doit implanter aussi ces 5
+méthodes.</p>
+<p>Notes :</p>
+<ul>
+<li>La méthode <code>sommet</code> retourne le sommet de la pile (sans
+dépiler)</li>
+<li>La méthode <code>equals</code> teste l’égalité de deux Piles: deux
+piles sont égales si elles ont la même taille, même capacité, et les
+éléments contenus identiques.</li>
+<li>La méthode <code>capacite</code> indique le nombre maximal
+d’éléments que l’on peut empiler.</li>
+<li>La méthode <code>taille</code> retourne le nombre d’éléments
+présents dans cette pile.</li>
+<li>La méthode <code>hashCode</code> est fournie. <a
+href="https://fr.wikipedia.org/wiki/Java_hashCode()">Wikipedia</a>
+explique quel doit être le comportement de cette méthode, notamment
+vis-à-vis de <code>equals</code>: deux objets considérés comme
+<code>equals</code> entre eux doivent retourner le même hashCode (la
+réciproque n’est pas nécessaire, mais une fonction de hash qui évite au
+maximum les collisions rend la table de hash plus efficace).</li>
+</ul>
+<!-- et cette note intitulée "How to avoid traps and correctly
+override methods from java.lang.Object" peut vous être utile pour
+comprendre sa présence ainsi que la javadoc de la classe Object -->
+<hr>
+<h2 id="implémenter-une-interface"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_2.png" />
+Implémenter une interface</h2>
+<p>PLUSIEURS implémentations, UN SEUL comportement:</p>
+<p><mark>Proposez 4 autres implémentations des Piles</mark> (donc
+implémentant l’interface <code>PileI</code>), attention, pour
+l’utilisateur ici les piles doivent toujours être bornées, elles ne
+peuvent avoir un comportement différent…</p>
+<ul>
+<li><code>Pile</code>: utilise la Pile de la question 1,</li>
+<li><code>Pile2</code>: utilise la classe prédéfinie
+java.util.Stack‹object›,</li>
+<li><code>Pile3</code>: utilise la classe prédéfinie
+java.util.Vector‹object›,</li>
+<li><code>Pile4</code>: utilise une liste chaînée créée en interne</li>
+</ul>
+<p>Remarques:</p>
+<p><code>Pile2</code> et <code>Pile3</code> seront composées d’une
+instance d’une classe prédéfinie comme le suggère les extraits de code
+suivants:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">util</span><span class="op">.</span><span class="im">Stack</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Pile2 <span class="kw">implements</span> PileI <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">private</span> <span class="bu">Stack</span><span class="op">&lt;</span><span class="bu">Object</span><span class="op">&gt;</span> stk<span class="op">;</span> <span class="co">// La classe Pile2 est implémentée par délégation</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">util</span><span class="op">.</span><span class="im">Vector</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> Pile3 <span class="kw">implements</span> PileI <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">private</span> <span class="bu">Vector</span><span class="op">&lt;</span><span class="bu">Object</span><span class="op">&gt;</span> v<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Note: la méthode <code>equals</code> teste l’égalité de deux
+<code>Piles</code>: capacité et contenu identiques</p>
+<hr>
+<h2 id="les-classes-de-tests-unitaires"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_3.png" />
+Les classes de tests unitaires</h2>
+<p><mark> Proposez une classe de tests unitaires à chaque
+implémentation</mark>.</p>
+<hr>
+<h2 id="tests-unitaires-pilesaumemecomportement"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_4.png" />
+Tests Unitaires <code>PilesAuMemeComportement</code></h2>
+<p><mark>Complétez la classe de tests unitaires</mark> nommée
+<code>PilesAuMemeComportement</code> (la bien nommée), qui “vérifie” que
+toutes les piles ont bien le même comportement.</p>
+<hr>
+<h2 id="le-couple-equals-hashcode"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_5.png" />
+Le couple <code>&lt;equals, hashCode&gt;</code></h2>
+<p><mark>Que pensez vous</mark> de cette réponse pour les classes
+<code>Pile</code>, <code>Pile2</code>, <code>Pile3</code> et
+<code>Pile4</code>?</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">equals</span><span class="op">(</span><span class="bu">Object</span> o<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>o <span class="kw">instanceof</span> PileI<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        PileI p <span class="op">=</span> <span class="op">(</span>PileI<span class="op">)</span> o<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">capacite</span><span class="op">()</span> <span class="op">==</span> p<span class="op">.</span><span class="fu">capacite</span><span class="op">()</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">&amp;&amp;</span> <span class="kw">this</span><span class="op">.</span><span class="fu">hashCode</span><span class="op">()</span> <span class="op">==</span> p<span class="op">.</span><span class="fu">hashCode</span><span class="op">();</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><mark>Est-elle correcte?</mark> Quelle est la règle à retenir? (à
+toutes fins utiles la javadoc de <a
+href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html#hashCode()">java.lang.Object</a></p>
+<p>Cette autre réponse, est élégante, mais n’est pas correcte:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">equals</span><span class="op">(</span><span class="bu">Object</span> o<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">this</span><span class="op">.</span><span class="fu">toString</span><span class="op">().</span><span class="fu">equals</span><span class="op">(</span>o<span class="op">.</span><span class="fu">toString</span><span class="op">());</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><mark>Pourquoi ?</mark></p>
+<hr>
+<h2 id="généricité-un-premier-usage"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question3_1.png" />
+Généricité : un premier usage</h2>
+<p>L’interface <code>pileI</code> est désormais paramétrée par le type
+des éléments.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span><span class="im"> question3</span><span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">question1</span><span class="op">.</span><span class="im">PilePleineException</span><span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">question1</span><span class="op">.</span><span class="im">PileVideException</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">interface</span> PileI<span class="op">&lt;</span>T<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">public</span> <span class="dt">final</span> <span class="dt">static</span> <span class="dt">int</span> CAPACITE_PAR_DEFAUT <span class="op">=</span> <span class="dv">6</span><span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">empiler</span><span class="op">(</span>T o<span class="op">)</span> <span class="kw">throws</span> PilePleineException<span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">public</span> T <span class="fu">depiler</span><span class="op">()</span> <span class="kw">throws</span> PileVideException<span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">public</span> T <span class="fu">sommet</span><span class="op">()</span> <span class="kw">throws</span> PileVideException<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// PileI </span></span></code></pre></div>
+<h2 id="la-classe-uneutilisation"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question3_2.png" />
+La classe <code>UneUtilisation</code></h2>
+<p>Dans la méthode <code>main</code> de la classe
+<code>UneUtilisation</code>, <mark>proposez</mark> toutes les
+déclarations correctes afin que la compilation de cette classe
+s’effectue sans aucun message d’erreur ou alertes.</p>
+<p>C’est-à-dire proposez les déclarations telles que <code>p1</code>
+contienne des éléments “de type <code>PolygoneRegulier</code>”,
+<code>p2</code> que des <code>Piles</code> de Polygone régulier , etc …
+Les tests de correction vous donneront des indications quant au nombre
+miniam accepté d’appels au constructeurs et aux fonctions.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">question1</span><span class="op">.</span><span class="im">PolygoneRegulier</span><span class="op">;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> UneUtilisation <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span><span class="op">(</span><span class="bu">String</span><span class="op">[]</span> args<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    PileI <span class="kw">...</span> p1 <span class="op">=</span> <span class="kw">new</span> Pile2 <span class="kw">...</span> <span class="op">(</span><span class="dv">10</span><span class="op">);</span> <span class="co">// p1 ne contient que des polygones réguliers</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    PileI <span class="kw">...</span> p2 <span class="op">=</span> <span class="kw">new</span> Pile2 <span class="kw">...</span> <span class="op">(</span><span class="dv">10</span><span class="op">);</span> <span class="co">// p2 ne contient que des piles de polygones réguliers</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    etc <span class="kw">...</span></span></code></pre></div>
+<p>Vérifiez ensuite que ces lignes extraites de la question 1 ne se
+compilent plus !</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>      p1<span class="op">.</span><span class="fu">empiler</span><span class="op">(</span><span class="kw">new</span> <span class="fu">polygoneRegulier</span><span class="op">(</span><span class="dv">5</span><span class="op">,</span><span class="dv">10</span><span class="op">));</span> <span class="co">// vérifiez qu&#39;une exception est levée à la compilation</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>      <span class="bu">String</span> s <span class="op">=</span> <span class="op">(</span><span class="bu">String</span><span class="op">)</span>p1<span class="op">.</span><span class="fu">depiler</span><span class="op">();</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span><span class="op">(</span><span class="bu">Exception</span> e <span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>      e<span class="op">.</span><span class="fu">printStackTrace</span><span class="op">();</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> </span></code></pre></div>
+<!--
+LocalWords:  Junit Git TP clonez gradle git l'énoncé Fahrenheit
+LocalWords:  Celsius FahrenheitCelsius tp JDK Windows hr i.e
+LocalWords:  runtime télécharger l'IHM error IHM center ihm.jar
+LocalWords:  celsius
+-->
+</body>
+</html>
