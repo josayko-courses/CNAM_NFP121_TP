@@ -17,14 +17,13 @@ version = '1.0'
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
-    mavenCentral()    
+    mavenCentral()
 }
 
 
 dependencies {
     implementation 'org.apache.bcel:bcel:6.5.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-    testImplementation(files("testlib/ZTestOfficial.jar"))
 }
 
 // Uncomment the following to :
