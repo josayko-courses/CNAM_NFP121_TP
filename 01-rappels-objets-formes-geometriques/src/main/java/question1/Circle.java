@@ -15,6 +15,26 @@ public class Circle {
   private String color;
   private boolean isVisible;
 
+  public int getDiameter() {
+    return diameter;
+  }
+
+  public int getXposition() {
+    return xPosition;
+  }
+
+  public int getYposition() {
+    return yPosition;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public boolean getIsVisible() {
+    return isVisible;
+  }
+
   /** Create a new circle at default position with default color. */
   public Circle() {
     diameter = 30;

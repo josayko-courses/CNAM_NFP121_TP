@@ -16,6 +16,30 @@ public class Triangle {
   private String color;
   private boolean isVisible;
 
+  public int getHeight() {
+    return height;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getXposition() {
+    return xPosition;
+  }
+
+  public int getYposition() {
+    return yPosition;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public boolean getIsVisible() {
+    return isVisible;
+  }
+
   /** Create a new triangle at default position with default color. */
   public Triangle() {
     height = 30;
@@ -26,7 +50,6 @@ public class Triangle {
     isVisible = false;
   }
 
-  
   /** Make this triangle visible. If it was already visible, do nothing. */
   public void makeVisible() {
     isVisible = true;
