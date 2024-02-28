@@ -19,6 +19,7 @@ public class Picture {
   private Square window;
   private Triangle roof;
   private Circle sun;
+  private Circle sun2;
 
   /** Constructor for objects of class Picture */
   public Picture() {
@@ -45,11 +46,18 @@ public class Picture {
     roof.makeVisible();
 
     sun = new Circle();
-    sun.changeColor("yellow");
+    sun.changeColor("blue");
     sun.moveHorizontal(180);
     sun.moveVertical(-10);
     sun.changeSize(60);
     sun.makeVisible();
+
+    sun2 = new Circle();
+    sun2.changeColor("yellow");
+    sun2.moveHorizontal(120);
+    sun2.moveVertical(-10);
+    sun2.changeSize(60);
+    sun2.makeVisible();
   }
 
   /** Change this picture to black/white display */
@@ -72,5 +80,10 @@ public class Picture {
       roof.changeColor("green");
       sun.changeColor("yellow");
     }
+  }
+
+  /** Make the blue sun go down */
+  public void makeBlueSunDown() {
+    sun.slowMoveVertical(250);
   }
 }

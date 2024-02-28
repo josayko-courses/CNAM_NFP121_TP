@@ -14,6 +14,7 @@ public class VisitorCode extends org.apache.bcel.classfile.EmptyVisitor {
     this.infoClass = info;
   }
 
+  @SuppressWarnings("resource")
   @Override
   public void visitMethod(Method m) {
     Code code = m.getCode();
