@@ -3,8 +3,8 @@ package question1;
 /**
  * Classe-test FahrenheitCelsiusTest.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Jonny SAYKOSY
+ * @version 2023.03.02
  */
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -74,6 +74,27 @@ public class FahrenheitCelsiusTest {
   public void test_fahrenheitEnCelsius2() {
     assertEquals(
         0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
+    assertEquals(
+        0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
+    assertEquals(
+        0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
   }
 
+  @Test
+  public void test_fahrenheitEnCelsius3() {
+    assertEquals(
+        0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
+    assertEquals(
+        0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
+    assertEquals(
+        0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
+  }
+
+  @Test
+  public void test_fahrenheitEnCelsius4() {
+    assertEquals(
+        0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
+    assertEquals(
+        0, question1.FahrenheitCelsius.fahrenheitEnCelsius(32), 0.1, "   32 °F -> 0.0 °C ?");
+  }
 }

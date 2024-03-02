@@ -1,5 +1,8 @@
 package question1;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Convert temperatures from °F to °C
  *
@@ -16,7 +19,7 @@ public class FahrenheitCelsius {
       int fahrenheit = Integer.parseInt(arg);
       float celsius = fahrenheitEnCelsius(fahrenheit);
       // ligne, format imposé
-      System.out.println(fahrenheit + "\u00B0F -> " + celsius + "\u00B0C");
+      System.out.printf(fahrenheit + "\u00B0F -> " + "%.1f" + "\u00B0C\n", celsius);
     }
   }
 
@@ -28,6 +31,6 @@ public class FahrenheitCelsius {
    */
   public static float fahrenheitEnCelsius(int f) {
     float celsius = 5f / 9 * (f - 32);
-    return celsius;
+    return new BigDecimal(celsius).setScale(1, RoundingMode.DOWN).floatValue();
   }
 }
