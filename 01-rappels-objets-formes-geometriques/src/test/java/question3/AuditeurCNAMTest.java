@@ -9,29 +9,34 @@ import org.junit.jupiter.api.Test;
 /**
  * Classe-test AuditeurCNAMTest.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Jonny Saykosy
+ * @version 1.0.0
  */
 public class AuditeurCNAMTest {
-  // Définissez ici les variables d'instance nécessaires à vos engagements (fixtures);
+  // Définissez ici les variables d'instance nécessaires à vos engagements
+  AuditeurCNAM auditeur;
 
   /** Constructeur de la classe-test AuditeurCNAMTest. */
-  public AuditeurCNAMTest() {}
+  public AuditeurCNAMTest() {
+  }
 
   /**
    * Met en place les engagements.
    *
-   * <p>Méthode appelée avant chaque appel de méthode de test.
+   * <p>
+   * Méthode appelée avant chaque appel de méthode de test.
    */
   @BeforeEach
   protected void setUp() { // throws java.lang.Exception
     // Initialisez ici vos engagements
+    auditeur = new AuditeurCNAM("François", "Jean-Émilien", "CNAM12345");
   }
 
   /**
    * Supprime les engagements
    *
-   * <p>Méthode appelée après chaque appel de méthode de test.
+   * <p>
+   * Méthode appelée après chaque appel de méthode de test.
    */
   @AfterEach
   protected void tearDown() { // throws java.lang.Exception
@@ -103,5 +108,22 @@ public class AuditeurCNAMTest {
   }
 
   // Complétez
+  @Test
+  public void test_login() {
+    assertEquals("franco_j", this.auditeur.login());
+  }
+
+  @Test
+  public void test_loginWithHyphen() {
+    AuditeurCNAM auditeur1 = new AuditeurCNAM("De-Lamarche", "Jean", "12345");
+    assertEquals("de_lam_j", auditeur1.login());
+  }
+
+  @Test
+  public void test_call_methods() {
+    assertEquals("François", auditeur.nom());
+    assertEquals("Jean-Émilien", auditeur.prenom());
+    assertEquals("François Jean-Émilien login : franco_j", auditeur.toString());
+  }
 
 }
