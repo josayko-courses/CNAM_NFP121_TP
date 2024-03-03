@@ -1,10 +1,12 @@
 package question2;
 
+import java.util.Iterator;
 import java.util.Stack;
 import question1.PilePleineException;
 import question1.PileVideException;
 
 public class Pile2 implements PileI {
+  public static final int TAILLE_PAR_DEFAUT = 5;
   /** par délégation : utilisation de la class Stack */
   private Stack<Object> stk;
 
@@ -17,15 +19,19 @@ public class Pile2 implements PileI {
    * @param taille la taille de la pile, la taille doit être {@code > 0}
    */
   public Pile2(int taille) {
-    // à compléter, prévoir le cas <= 0 
+    this.stk = new Stack<Object>();
+    this.capacite = taille > 0 ? taille : TAILLE_PAR_DEFAUT;
   }
 
   public Pile2() {
-    // à completer, on peut appeler le constructeur ci-dessus avec "this(...); 
+    this(TAILLE_PAR_DEFAUT);
   }
 
   public void empiler(Object o) throws PilePleineException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estPleine())
+      throw new PilePleineException();
+    this.stk.push(o);
+    this.capacite++;
   }
 
   public Object depiler() throws PileVideException {
@@ -42,7 +48,7 @@ public class Pile2 implements PileI {
    * @return vrai si la pile est vide, faux autrement
    */
   public boolean estVide() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.stk.empty();
   }
 
   /**
@@ -51,23 +57,49 @@ public class Pile2 implements PileI {
    * @return vrai si la pile est pleine, faux autrement
    */
   public boolean estPleine() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.stk.size() == this.capacite;
   }
 
   /**
-   * Retourne une représentation en String d'une pile, contenant la représentation en String de
+   * Retourne une représentation en String d'une pile, contenant la représentation
+   * en String de
    * chaque élément.
    *
    * @return une représentation en String d'une pile
    */
   public String toString() {
-    String s = "[";
-    // à compléter
-    return s + "]";
+    StringBuffer sb = new StringBuffer("[");
+    Iterator<Object> it = this.stk.iterator();
+    while (it.hasNext()) {
+      sb.append(it.next());
+      if (it.hasNext())
+        sb.append(", ");
+    }
+    sb.append("]");
+    return sb.toString();
   }
 
+  @Override
   public boolean equals(Object o) {
-    // à compléter 
+    if (o instanceof PileI) {
+      PileI p = (PileI) o;
+      Boolean hasSameElements = true;
+      if (this.taille() != 0) {
+        for (int i = this.taille(); i >= 0; i--) {
+          try {
+            if (p.depiler() != this.stk.elementAt(i)) {
+              hasSameElements = false;
+              break;
+            }
+          } catch (Exception e) {
+            hasSameElements = false;
+          }
+        }
+      } else if (this.taille() != p.taille()) {
+        hasSameElements = false;
+      }
+      return hasSameElements && this.hashCode() == p.hashCode();
+    }
     return false;
   }
 
@@ -82,8 +114,7 @@ public class Pile2 implements PileI {
    * @return le nombre d'élément
    */
   public int taille() {
-    // à compléter
-    return 0;
+    return this.stk.size();
   }
 
   /**
@@ -92,7 +123,6 @@ public class Pile2 implements PileI {
    * @return le nombre d'élément
    */
   public int capacite() {
-    // à compléter
-    return 0;
+    return this.capacite;
   }
 }
