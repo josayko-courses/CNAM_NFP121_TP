@@ -50,7 +50,7 @@ public class Pile {
   public String toString() {
     StringBuffer sb = new StringBuffer("[");
     for (int i = ptr - 1; i >= 0; i--) {
-      sb.append(Integer.toString((int) zone[i]));
+      sb.append(zone[i]);
       if (i > 0)
         sb.append(", ");
     }

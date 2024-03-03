@@ -40,17 +40,22 @@ public class IHMPile extends JFrame implements ActionListener {
 
   public void actionPerformed(ActionEvent ae) {
     if (ae.getActionCommand().equals("empiler")) {
-      
-      // à compléter
-      // pour le comportement attendu depuis votre répertoire
-      // exécuter cette commande tp3>appletviewer tp3.html
-
-      // en cas d'exception (compléter le message d'erreur)
-      // contenu.setText("??" + " estPleine !"); 
+      try {
+        String data = donnee.getText();
+        p.empiler(data);
+        contenu.setText(p.toString());
+      } catch (Exception e) {
+        System.out.println(e);
+        contenu.setText("??" + " estPleine !");
+      }
     } else {
-      // à compléter
-      // en cas d'exception (compléter le message d'erreur)
-      // contenu.setText("" + " estVide !"); 
+      try {
+        Object data = p.depiler();
+        contenu.setText(p.toString());
+        sommet.setText(data.toString());
+      } catch (Exception e) {
+        contenu.setText("" + " estVide !");
+      }
     }
   }
 
