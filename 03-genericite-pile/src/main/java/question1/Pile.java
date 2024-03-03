@@ -3,18 +3,19 @@ package question1;
 /**
  * Remplacez int[] par Object[].
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Jonny SAYKOSY
+ * @version 2024.03.03
  */
 public class Pile {
   public static final int TAILLE_PAR_DEFAUT = 5;
 
-  private int [] zone;
+  private Object[] zone;
   private int ptr;
 
   public Pile(int taille) {
-    if (taille < 0) taille = TAILLE_PAR_DEFAUT;
-    this.zone = new int [taille];
+    if (taille < 0)
+      taille = TAILLE_PAR_DEFAUT;
+    this.zone = new Object[taille];
     this.ptr = 0;
   }
 
@@ -23,15 +24,17 @@ public class Pile {
   }
 
   public void empiler(
-      int i) throws PilePleineException { // à compléter
-    if (estPleine()) throw new PilePleineException();
+      Object i) throws PilePleineException { // à compléter
+    if (estPleine())
+      throw new PilePleineException();
     this.zone[this.ptr] = i;
     this.ptr++;
   }
 
-  public int  depiler()
+  public Object depiler()
       throws PileVideException { // à compléter
-    if (estVide()) throw new PileVideException();
+    if (estVide())
+      throw new PileVideException();
     this.ptr--;
     return zone[ptr];
   }
@@ -47,8 +50,9 @@ public class Pile {
   public String toString() {
     StringBuffer sb = new StringBuffer("[");
     for (int i = ptr - 1; i >= 0; i--) {
-      sb.append(Integer.toString(zone[i]));
-      if (i > 0) sb.append(", ");
+      sb.append(Integer.toString((int) zone[i]));
+      if (i > 0)
+        sb.append(", ");
     }
     sb.append("]");
     return sb.toString();
