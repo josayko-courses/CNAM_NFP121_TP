@@ -3,7 +3,7 @@ package question3;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import question1.*;
+import question2.*;
 
 public class IHMFahrenheit extends JFrame implements ActionListener {
   private static final long serialVersionUID = 1L;
@@ -39,18 +39,22 @@ public class IHMFahrenheit extends JFrame implements ActionListener {
   }
 
   /**
-   * méthode déclenchée lorsque le bouton de conversion est appuyé. remarquer que le champs de
+   * méthode déclenchée lorsque le bouton de conversion est appuyé. remarquer que
+   * le champs de
    * droite (les degrés Celsius) n'est pas éditable.
    *
    * @param ae l'événement transmis
    */
   public void actionPerformed(ActionEvent ae) {
     try {
-      int fahrenheit = 0; // valeur est une String et doit être convertie en entier,
-             // voir java.lang.Integer méthode parseInt (--> try/catch)
-      float celsius = 0F; // à compléter, en appelant la méthode ad'hoc de la question2
-      // un test ici pour le zéro absolu (-273.1) 
-      sortie.setText(Float.toString(celsius));
+      if (ae.getActionCommand() == "convertir") {
+        int fahrenheit = Integer.parseInt(entree.getText());
+        float celsius = FahrenheitCelsius.fahrenheitEnCelsius(fahrenheit);
+        if (celsius < -273.1f) {
+          celsius = -273.1f;
+        }
+        sortie.setText(Float.toString(celsius));
+      }
     } catch (NumberFormatException nfe) {
       sortie.setText("error ! ");
     }

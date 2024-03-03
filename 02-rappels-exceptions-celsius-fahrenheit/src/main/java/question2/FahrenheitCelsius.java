@@ -1,5 +1,8 @@
 package question2;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Décrivez votre classe FahrenheitCelsius ici.
  *
@@ -31,6 +34,6 @@ public class FahrenheitCelsius {
    */
   public static float fahrenheitEnCelsius(int f) {
     float celsius = 5f / 9 * (f - 32);
-    return celsius;
+    return new BigDecimal(celsius).setScale(1, RoundingMode.DOWN).floatValue();
   }
 }
