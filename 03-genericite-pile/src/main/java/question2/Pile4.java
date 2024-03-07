@@ -3,10 +3,11 @@ package question2;
 import question1.PilePleineException;
 import question1.PileVideException;
 
-public class Pile4 implements PileI  {
+public class Pile4 implements PileI {
 
   /**
-   * la liste des Maillons/Elements. Plus exactement son premier élément, qui contient le suivant
+   * la liste des Maillons/Elements. Plus exactement son premier élément, qui
+   * contient le suivant
    * etc.
    */
   private Maillon stk;
@@ -18,7 +19,8 @@ public class Pile4 implements PileI  {
   private int nombre;
 
   /**
-   * Classe interne "statique" contenant chaque élément de la chaine c'est une proposition, vous
+   * Classe interne "statique" contenant chaque élément de la chaine c'est une
+   * proposition, vous
    * pouvez l'ignorer !
    */
   private static class Maillon implements Cloneable {
@@ -46,7 +48,8 @@ public class Pile4 implements PileI  {
    * @param taille la taille de la pile, la taille doit être {@code > 0}
    */
   public Pile4(int taille) {
-    if (taille <= 0) taille = CAPACITE_PAR_DEFAUT;
+    if (taille <= 0)
+      taille = CAPACITE_PAR_DEFAUT;
     this.stk = null;
     this.capacite = taille;
   }
@@ -56,18 +59,35 @@ public class Pile4 implements PileI  {
   }
 
   public void empiler(Object o) throws PilePleineException {
-    if (estPleine()) throw new PilePleineException();
-    // à compléter 
+    if (estPleine())
+      throw new PilePleineException();
+    if (this.stk != null) {
+      Maillon it = this.stk;
+      while (it.suivant != null) {
+        it = this.stk.suivant();
+      }
+      it.suivant = new Maillon(o, null);
+    } else {
+      this.stk = new Maillon(o, null);
+    }
   }
 
   public Object depiler() throws PileVideException {
-    if (estVide()) throw new PileVideException();
-    // à compléter
-    return null;
+    if (estVide())
+      throw new PileVideException();
+    this.nombre--;
+    Maillon it = this.stk;
+    while (it.suivant != null) {
+      it = this.stk.suivant();
+    }
+    Object el = it.element();
+    it = null;
+    return el;
   }
 
   public Object sommet() throws PileVideException {
-    if (estVide()) throw new PileVideException();
+    if (estVide())
+      throw new PileVideException();
     // à compléter
     return null;
   }
@@ -79,7 +99,7 @@ public class Pile4 implements PileI  {
    */
   public boolean estVide() {
     // à compléter
-    return false; 
+    return false;
   }
 
   /**
@@ -89,24 +109,25 @@ public class Pile4 implements PileI  {
    */
   public boolean estPleine() {
     // à compléter
-    return false; 
+    return false;
   }
 
   /**
-   * Retourne une représentation en String d'une pile, contenant la représentation en String de
+   * Retourne une représentation en String d'une pile, contenant la représentation
+   * en String de
    * chaque élément.
    *
    * @return une représentation en String d'une pile
    */
   public String toString() {
     String s = "[";
-    // à compléter 
+    // à compléter
     return s + "]";
   }
 
   public boolean equals(Object o) {
     if (o instanceof Pile4) {
-      // à compléter 
+      // à compléter
       return false;
     }
     return false;

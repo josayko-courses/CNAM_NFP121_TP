@@ -35,11 +35,17 @@ public class Pile2 implements PileI {
   }
 
   public Object depiler() throws PileVideException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estVide())
+      throw new PileVideException();
+    this.capacite--;
+    return this.stk.lastElement();
   }
 
   public Object sommet() throws PileVideException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (this.estVide()) {
+      throw new PileVideException();
+    }
+    return this.stk.lastElement();
   }
 
   /**
