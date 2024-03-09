@@ -1,5 +1,6 @@
 package question2;
 
+import java.util.Vector;
 import question1.PilePleineException;
 import question1.PileVideException;
 
@@ -74,22 +75,27 @@ public class Pile4 implements PileI {
     this.nombre++;
   }
 
-  // TODO: pas bon
   public Object depiler() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    Object el = null;
-    Maillon previous = this.stk;
-    for (Maillon it = this.stk; it != null; it = it.suivant()) {
-      if (it.suivant() == null) {
-        el = it.element();
-        break;
-      }
-      previous = it;
+    if (this.stk == null || this.stk.suivant() == null) {
+      Object el = this.stk.element();
+      this.stk = null; // If the list is empty or has only one node, set head to null
+      this.nombre--;
+      return el;
     }
-    previous.suivant = null;
+
+    Maillon prev = null;
+    Maillon curr = this.stk;
+
+    // Traverse the list until the second last node
+    while (curr.suivant() != null) {
+      prev = curr;
+      curr = curr.suivant();
+    }
+    Object el = curr.element();
+    prev.suivant = null; // Set the next of second last node to null to remove the last node
     this.nombre--;
-    System.out.println(previous.element());
     return el;
   }
 
@@ -147,35 +153,34 @@ public class Pile4 implements PileI {
     if (o instanceof PileI) {
       Boolean hasSameElements = true;
       PileI p = (PileI) o;
+      Vector<Object> tmp1 = new Vector<>();
+      Vector<Object> tmp2 = new Vector<>();
       if (!this.estVide()) {
-        Pile4 tmp = new Pile4(p.taille());
-        for (Maillon it = this.stk; it != null; it = it.suivant()) {
-          try {
+        try {
+          Maillon it = this.stk;
+          int size = p.taille();
+          for (int i = size - 1; i >= 0; i--) {
             Object el = p.depiler();
-            System.out.println(el);
-            tmp.empiler(el);
-            if (!el.equals(it.element())) {
-              hasSameElements = false;
-              break;
-            }
-          } catch (Exception e) {
-            hasSameElements = false;
+            tmp1.add(0, el);
+            tmp2.add(it.element());
+            it = it.suivant();
           }
+          for (int i = 0; i < size; i++) {
+            p.empiler(tmp1.get(i));
+          }
+        } catch (Exception e) {
+          System.out.println("error");
+          hasSameElements = false;
         }
-        // for (Maillon it = tmp.stk; it != null; it = it.suivant()) {
-        // try {
-        // Object el = tmp.depiler();
-        // p.empiler(el);
-        // } catch (Exception e) {
-        // }
-        // }
+      }
+      if (!tmp1.equals(tmp2)) {
+        hasSameElements = false;
       }
       return hasSameElements && this.taille() == p.taille()
           && this.capacite() == p.capacite()
           && this.hashCode() == p.hashCode();
     }
     return false;
-
   }
 
   public int capacite() {

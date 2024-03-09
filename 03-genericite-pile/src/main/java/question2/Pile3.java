@@ -75,7 +75,7 @@ public class Pile3 implements PileI {
       Boolean hasSameElements = true;
       PileI p = (PileI) o;
       if (!this.estVide()) {
-        Pile3 tmp = new Pile3(p.taille());
+        Pile tmp = new Pile(p.taille());
         for (int i = this.taille() - 1; i >= 0; i--) {
           try {
             Object el = p.depiler();
@@ -88,11 +88,12 @@ public class Pile3 implements PileI {
             hasSameElements = false;
           }
         }
-        for (int i = this.taille() - 1; i >= 0; i--) {
+        for (int i = this.taille(); i > 0; i--) {
           try {
             Object el = tmp.depiler();
             p.empiler(el);
           } catch (Exception e) {
+            return false;
           }
         }
       }

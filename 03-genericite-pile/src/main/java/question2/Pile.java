@@ -1,7 +1,5 @@
 package question2;
 
-import java.util.Vector;
-
 import question1.PilePleineException;
 import question1.PileVideException;
 
@@ -16,11 +14,13 @@ public class Pile implements PileI {
 
   private Object[] zone;
   private int ptr;
+  private int capacite;
 
   public Pile(int taille) {
     if (taille <= 0)
       taille = TAILLE_PAR_DEFAUT;
     this.zone = new Object[taille];
+    this.capacite = taille;
     this.ptr = 0;
   }
 
@@ -32,15 +32,15 @@ public class Pile implements PileI {
     if (estPleine())
       throw new PilePleineException();
     this.zone[this.ptr] = o;
-    this.ptr = this.ptr++;
+    this.ptr++;
   }
 
   public Object depiler() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    Object el = zone[ptr];
-    zone[ptr] = null;
-    this.ptr = this.ptr--;
+    this.ptr--;
+    Object el = zone[this.ptr];
+    zone[this.ptr] = null;
     return el;
   }
 
@@ -55,7 +55,7 @@ public class Pile implements PileI {
   }
 
   public int capacite() {
-    return zone.length;
+    return capacite;
   }
 
   public boolean estVide() {
@@ -90,6 +90,7 @@ public class Pile implements PileI {
             Object el = tmp.depiler();
             p.empiler(el);
           } catch (Exception e) {
+            return false;
           }
         }
       }
