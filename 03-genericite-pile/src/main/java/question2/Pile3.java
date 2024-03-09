@@ -1,12 +1,10 @@
 package question2;
 
-import java.util.Iterator;
 import java.util.Vector;
 import question1.PilePleineException;
 import question1.PileVideException;
 
 public class Pile3 implements PileI {
-  public static final int TAILLE_PAR_DEFAUT = 5;
   private Vector<Object> v;
   private int size;
 
@@ -16,7 +14,7 @@ public class Pile3 implements PileI {
   }
 
   public Pile3() {
-    this(TAILLE_PAR_DEFAUT);
+    this(CAPACITE_PAR_DEFAUT);
   }
 
   public void empiler(Object o) throws PilePleineException {
@@ -38,7 +36,7 @@ public class Pile3 implements PileI {
     if (this.estVide()) {
       throw new PileVideException();
     }
-    return this.v.lastElement();
+    return this.v.firstElement();
   }
 
   public int taille() {
@@ -59,10 +57,9 @@ public class Pile3 implements PileI {
 
   public String toString() {
     StringBuffer sb = new StringBuffer("[");
-    Iterator<Object> it = this.v.iterator();
-    while (it.hasNext()) {
-      sb.append(it.next());
-      if (it.hasNext())
+    for (int i = this.taille() - 1; i >= 0; i--) {
+      sb.append(this.v.get(i));
+      if (i > 0)
         sb.append(", ");
     }
     sb.append("]");

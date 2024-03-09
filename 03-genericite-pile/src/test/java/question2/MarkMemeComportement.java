@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import question1.PilePleineException;
 
 public class MarkMemeComportement {
 
@@ -16,7 +15,7 @@ public class MarkMemeComportement {
 
   @BeforeEach
   protected void setUp() // throws java.lang.Exception
-      {
+  {
     p1 = new question2.Pile(PileI.CAPACITE_PAR_DEFAUT);
     p2 = new question2.Pile2(PileI.CAPACITE_PAR_DEFAUT);
     p3 = new question2.Pile3(PileI.CAPACITE_PAR_DEFAUT);
@@ -25,7 +24,7 @@ public class MarkMemeComportement {
 
   @AfterEach
   protected void tearDown() // throws java.lang.Exception
-      {
+  {
     // Liberez ici les ressources engagees par setUp()
   }
 
@@ -71,8 +70,8 @@ public class MarkMemeComportement {
     assertEquals(p2.capacite(), p3.capacite(), "p2.capacite() == p3.capacite() ??");
     assertEquals(p3.capacite(), p4.capacite(), "p3.capacite() == p4.capacite() ??");
 
-    // À compléter 
+    // À compléter
   }
 
-  // À compléter 
+  // À compléter
 }

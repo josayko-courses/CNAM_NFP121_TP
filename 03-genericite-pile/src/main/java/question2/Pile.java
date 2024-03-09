@@ -10,7 +10,7 @@ import question1.PileVideException;
  * @version 2023.03.03
  */
 public class Pile implements PileI {
-  public static final int TAILLE_PAR_DEFAUT = 5;
+  public static final int TAILLE_PAR_DEFAUT = 6;
 
   private Object[] zone;
   private int ptr;

@@ -1,12 +1,10 @@
 package question2;
 
-import java.util.Iterator;
 import java.util.Stack;
 import question1.PilePleineException;
 import question1.PileVideException;
 
 public class Pile2 implements PileI {
-  public static final int TAILLE_PAR_DEFAUT = 5;
   /** par délégation : utilisation de la class Stack */
   private Stack<Object> stk;
 
@@ -20,11 +18,11 @@ public class Pile2 implements PileI {
    */
   public Pile2(int taille) {
     this.stk = new Stack<Object>();
-    this.capacite = taille > 0 ? taille : TAILLE_PAR_DEFAUT;
+    this.capacite = taille > 0 ? taille : CAPACITE_PAR_DEFAUT;
   }
 
   public Pile2() {
-    this(TAILLE_PAR_DEFAUT);
+    this(CAPACITE_PAR_DEFAUT);
   }
 
   public void empiler(Object o) throws PilePleineException {
@@ -43,7 +41,7 @@ public class Pile2 implements PileI {
     if (this.estVide()) {
       throw new PileVideException();
     }
-    return this.stk.lastElement();
+    return this.stk.firstElement();
   }
 
   /**
@@ -73,10 +71,9 @@ public class Pile2 implements PileI {
    */
   public String toString() {
     StringBuffer sb = new StringBuffer("[");
-    Iterator<Object> it = this.stk.iterator();
-    while (it.hasNext()) {
-      sb.append(it.next());
-      if (it.hasNext())
+    for (int i = this.taille() - 1; i >= 0; i--) {
+      sb.append(this.stk.get(i));
+      if (i > 0)
         sb.append(", ");
     }
     sb.append("]");

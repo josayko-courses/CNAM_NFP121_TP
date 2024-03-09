@@ -102,11 +102,7 @@ public class Pile4 implements PileI {
   public Object sommet() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    Maillon it = this.stk;
-    while (it.suivant != null) {
-      it = this.stk.suivant();
-    }
-    return it.element();
+    return this.stk.element();
   }
 
   /**
@@ -135,17 +131,17 @@ public class Pile4 implements PileI {
    * @return une représentation en String d'une pile
    */
   public String toString() {
-    StringBuffer sb = new StringBuffer("[");
+    StringBuffer sb = new StringBuffer("]");
     if (!this.estVide()) {
       for (Maillon it = this.stk; it != null; it = it.suivant()) {
         sb.append(it.element());
         if (it.suivant() == null)
           break;
-        sb.append(", ");
+        sb.append(" ,");
       }
     }
-    sb.append("]");
-    return sb.toString();
+    sb.append("[");
+    return sb.reverse().toString();
   }
 
   @Override
