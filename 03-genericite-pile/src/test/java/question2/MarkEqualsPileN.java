@@ -254,43 +254,43 @@ public class MarkEqualsPileN {
         " une pile4 d'entiers(1,2,3) == une pile4 de String(\"1\",\"2\",\"3\") ???");
   }
 
-  //     assertFalse(p1.equals(p11));
-  //         assertFalse(p1.equals(p11));
-  //             assertFalse(p1.equals(p11));
-  //     assertFalse(p.equals(p1));
-  //     assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
-  //     assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
-  // 	  assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));// etc ...
+  // assertFalse(p1.equals(p11));
+  // assertFalse(p1.equals(p11));
+  // assertFalse(p1.equals(p11));
+  // assertFalse(p.equals(p1));
+  // assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
+  // assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
+  // assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));// etc ...
   //
   //
   // p1.empiler(3);p1.empiler(33);p2.empiler(3);p2.empiler(33);p3.empiler(3);p3.empiler(33);p4.empiler(3);p4.empiler(33);
-  // 	  assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
-  //     assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
-  // 	  assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
+  // assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
+  // assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
+  // assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
   //
-  // 	  p1.empiler(4);p1.empiler(44);p2.empiler(4);p2.empiler(44);
-  // 	  assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
-  //     assertTrue(p1.equals(p2) && !p2.equals(p3) && !p1.equals(p3));
-  // 	  assertTrue(!p2.equals(p3) && p3.equals(p4) && !p2.equals(p4));
+  // p1.empiler(4);p1.empiler(44);p2.empiler(4);p2.empiler(44);
+  // assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
+  // assertTrue(p1.equals(p2) && !p2.equals(p3) && !p1.equals(p3));
+  // assertTrue(!p2.equals(p3) && p3.equals(p4) && !p2.equals(p4));
   //
-  // 	  p3.empiler(4);p3.empiler(44);p4.empiler(4);p4.empiler(44);
-  // 	  assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
-  //     assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
-  // 	  assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
+  // p3.empiler(4);p3.empiler(44);p4.empiler(4);p4.empiler(44);
+  // assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
+  // assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
+  // assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
   //
-  // 	  p1.depiler();p2.depiler();
-  // 	  assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
-  //     assertTrue(p1.equals(p2) && !p2.equals(p3) && !p1.equals(p3));
-  // 	  assertTrue(!p2.equals(p3) && p3.equals(p4) && !p2.equals(p4));
+  // p1.depiler();p2.depiler();
+  // assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
+  // assertTrue(p1.equals(p2) && !p2.equals(p3) && !p1.equals(p3));
+  // assertTrue(!p2.equals(p3) && p3.equals(p4) && !p2.equals(p4));
   //
-  // 	  p3.depiler();p4.depiler();
-  // 	  assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
-  //     assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
-  // 	  assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
+  // p3.depiler();p4.depiler();
+  // assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
+  // assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
+  // assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
   //
-  // 	  p1.depiler();p2.depiler();p3.depiler();p4.depiler();
-  // 	  assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
-  //     assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
-  // 	  assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
-  // 	 }
+  // p1.depiler();p2.depiler();p3.depiler();p4.depiler();
+  // assertTrue(p1.equals(p2) && p2.equals(p1)); // etc ...
+  // assertTrue(p1.equals(p2) && p2.equals(p3) && p1.equals(p3));
+  // assertTrue(p2.equals(p3) && p3.equals(p4) && p2.equals(p4));
+  // }
 }

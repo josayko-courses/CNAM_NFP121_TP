@@ -1,5 +1,7 @@
 package question2;
 
+import java.util.Vector;
+
 import question1.PilePleineException;
 import question1.PileVideException;
 
@@ -30,14 +32,16 @@ public class Pile implements PileI {
     if (estPleine())
       throw new PilePleineException();
     this.zone[this.ptr] = o;
-    this.ptr++;
+    this.ptr = this.ptr++;
   }
 
   public Object depiler() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    this.ptr--;
-    return zone[ptr];
+    Object el = zone[ptr];
+    zone[ptr] = null;
+    this.ptr = this.ptr--;
+    return el;
   }
 
   public Object sommet() throws PileVideException {
@@ -65,12 +69,15 @@ public class Pile implements PileI {
   @Override
   public boolean equals(Object o) {
     if (o instanceof PileI) {
-      PileI p = (PileI) o;
       Boolean hasSameElements = true;
-      if (this.taille() != 0) {
-        for (int i = this.taille(); i >= 0; i--) {
+      PileI p = (PileI) o;
+      if (!this.estVide()) {
+        Pile tmp = new Pile(p.taille());
+        for (int i = this.taille() - 1; i >= 0; i--) {
           try {
-            if (p.depiler() != this.zone[i]) {
+            Object el = p.depiler();
+            tmp.empiler(el);
+            if (!el.equals(this.zone[i])) {
               hasSameElements = false;
               break;
             }
@@ -78,10 +85,17 @@ public class Pile implements PileI {
             hasSameElements = false;
           }
         }
-      } else if (this.taille() != p.taille()) {
-        hasSameElements = false;
+        for (int i = this.taille(); i > 0; i--) {
+          try {
+            Object el = tmp.depiler();
+            p.empiler(el);
+          } catch (Exception e) {
+          }
+        }
       }
-      return hasSameElements && this.hashCode() == p.hashCode();
+      return hasSameElements && this.taille() == p.taille()
+          && this.capacite() == p.capacite()
+          && this.hashCode() == p.hashCode();
     }
     return false;
   }
@@ -95,11 +109,9 @@ public class Pile implements PileI {
   // return false;
   // }
   // Réponse: c'est incorrect car deux piles égaux doivent également avoir les
-  // éléments
-  // contenus identiques, cad même taille mais pas forcément même capacité.
+  // éléments contenus identiques.
   // La comparaison de la représentation .toString() de deux piles est non égales
-  // car
-  // leur hashCode sera toujours différent.
+  // car leur hashCode sera toujours différent.
 
   // fonction fournie
   @Override

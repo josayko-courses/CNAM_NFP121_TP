@@ -52,6 +52,7 @@ public class Pile4 implements PileI {
       taille = CAPACITE_PAR_DEFAUT;
     this.stk = null;
     this.capacite = taille;
+    this.nombre = 0;
   }
 
   public Pile4() {
@@ -70,26 +71,36 @@ public class Pile4 implements PileI {
     } else {
       this.stk = new Maillon(o, null);
     }
+    this.nombre++;
   }
 
+  // TODO: pas bon
   public Object depiler() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    this.nombre--;
-    Maillon it = this.stk;
-    while (it.suivant != null) {
-      it = this.stk.suivant();
+    Object el = null;
+    Maillon previous = this.stk;
+    for (Maillon it = this.stk; it != null; it = it.suivant()) {
+      if (it.suivant() == null) {
+        el = it.element();
+        break;
+      }
+      previous = it;
     }
-    Object el = it.element();
-    it = null;
+    previous.suivant = null;
+    this.nombre--;
+    System.out.println(previous.element());
     return el;
   }
 
   public Object sommet() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    // à compléter
-    return null;
+    Maillon it = this.stk;
+    while (it.suivant != null) {
+      it = this.stk.suivant();
+    }
+    return it.element();
   }
 
   /**
@@ -98,8 +109,7 @@ public class Pile4 implements PileI {
    * @return vrai si la pile est vide, faux autrement
    */
   public boolean estVide() {
-    // à compléter
-    return false;
+    return this.stk == null;
   }
 
   /**
@@ -108,8 +118,7 @@ public class Pile4 implements PileI {
    * @return vrai si la pile est pleine, faux autrement
    */
   public boolean estPleine() {
-    // à compléter
-    return false;
+    return this.nombre == this.capacite;
   }
 
   /**
@@ -120,17 +129,53 @@ public class Pile4 implements PileI {
    * @return une représentation en String d'une pile
    */
   public String toString() {
-    String s = "[";
-    // à compléter
-    return s + "]";
+    StringBuffer sb = new StringBuffer("[");
+    if (!this.estVide()) {
+      for (Maillon it = this.stk; it != null; it = it.suivant()) {
+        sb.append(it.element());
+        if (it.suivant() == null)
+          break;
+        sb.append(", ");
+      }
+    }
+    sb.append("]");
+    return sb.toString();
   }
 
+  @Override
   public boolean equals(Object o) {
-    if (o instanceof Pile4) {
-      // à compléter
-      return false;
+    if (o instanceof PileI) {
+      Boolean hasSameElements = true;
+      PileI p = (PileI) o;
+      if (!this.estVide()) {
+        Pile4 tmp = new Pile4(p.taille());
+        for (Maillon it = this.stk; it != null; it = it.suivant()) {
+          try {
+            Object el = p.depiler();
+            System.out.println(el);
+            tmp.empiler(el);
+            if (!el.equals(it.element())) {
+              hasSameElements = false;
+              break;
+            }
+          } catch (Exception e) {
+            hasSameElements = false;
+          }
+        }
+        // for (Maillon it = tmp.stk; it != null; it = it.suivant()) {
+        // try {
+        // Object el = tmp.depiler();
+        // p.empiler(el);
+        // } catch (Exception e) {
+        // }
+        // }
+      }
+      return hasSameElements && this.taille() == p.taille()
+          && this.capacite() == p.capacite()
+          && this.hashCode() == p.hashCode();
     }
     return false;
+
   }
 
   public int capacite() {

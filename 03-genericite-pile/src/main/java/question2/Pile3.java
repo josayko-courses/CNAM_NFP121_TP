@@ -23,14 +23,15 @@ public class Pile3 implements PileI {
     if (estPleine())
       throw new PilePleineException();
     this.v.add(o);
-    this.size++;
   }
 
   public Object depiler() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    this.size--;
-    return this.v.lastElement();
+    Object el = this.v.lastElement();
+    this.v.removeElementAt(this.v.size() - 1);
+    ;
+    return el;
   }
 
   public Object sommet() throws PileVideException {
@@ -68,14 +69,18 @@ public class Pile3 implements PileI {
     return sb.toString();
   }
 
+  @Override
   public boolean equals(Object o) {
     if (o instanceof PileI) {
-      PileI p = (PileI) o;
       Boolean hasSameElements = true;
-      if (this.taille() != 0) {
-        for (int i = this.taille(); i >= 0; i--) {
+      PileI p = (PileI) o;
+      if (!this.estVide()) {
+        Pile3 tmp = new Pile3(p.taille());
+        for (int i = this.taille() - 1; i >= 0; i--) {
           try {
-            if (p.depiler() != this.v.elementAt(i)) {
+            Object el = p.depiler();
+            tmp.empiler(el);
+            if (!el.equals(this.v.get(i))) {
               hasSameElements = false;
               break;
             }
@@ -83,10 +88,17 @@ public class Pile3 implements PileI {
             hasSameElements = false;
           }
         }
-      } else if (this.taille() != p.taille()) {
-        hasSameElements = false;
+        for (int i = this.taille() - 1; i >= 0; i--) {
+          try {
+            Object el = tmp.depiler();
+            p.empiler(el);
+          } catch (Exception e) {
+          }
+        }
       }
-      return hasSameElements && this.hashCode() == p.hashCode();
+      return hasSameElements && this.taille() == p.taille()
+          && this.capacite() == p.capacite()
+          && this.hashCode() == p.hashCode();
     }
     return false;
   }
