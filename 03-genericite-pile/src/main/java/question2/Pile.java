@@ -6,8 +6,8 @@ import question1.PileVideException;
 /**
  * A remplacer en partie par votre classe Pile de la question 1.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Jonny SAYKOSY
+ * @version 2023.03.10
  */
 public class Pile implements PileI {
 
@@ -15,11 +15,12 @@ public class Pile implements PileI {
   private int ptr;
 
   public Pile(int taille) {
-    // à compléter, prévoir le cas <= 0 
+    if (taille < 0) {
+    }
   }
 
   public Pile() {
-    // à completer, on peut appeler le constructeur ci-dessus avec "this(...); 
+    // à completer, on peut appeler le constructeur ci-dessus avec "this(...);
   }
 
   public void empiler(Object o) throws PilePleineException {
@@ -57,13 +58,13 @@ public class Pile implements PileI {
   }
 
   // Est-ce correct?
-  //   public boolean equals(Object o){
-  //     if(o instanceof PileI){
-  //       PileI p = (PileI)o;
-  //       return this.capacite()==p.capacite() && this.hashCode() == p.hashCode();
-  //     }else
-  //       return false;
-  //   }
+  // public boolean equals(Object o){
+  // if(o instanceof PileI){
+  // PileI p = (PileI)o;
+  // return this.capacite()==p.capacite() && this.hashCode() == p.hashCode();
+  // }else
+  // return false;
+  // }
 
   // fonction fournie
   @Override
@@ -74,6 +75,6 @@ public class Pile implements PileI {
   @Override
   public String toString() {
     // à compléter
-    return null; 
+    return null;
   }
 }
