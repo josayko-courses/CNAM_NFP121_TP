@@ -13,48 +13,67 @@ public class Pile implements PileI {
 
   private Object[] zone;
   private int ptr;
+  private int capacite;
 
   public Pile(int taille) {
     if (taille < 0) {
+      taille = CAPACITE_PAR_DEFAUT;
     }
+    this.capacite = taille;
+    this.zone = new Object[this.capacite];
+    this.ptr = 0;
   }
 
   public Pile() {
-    // à completer, on peut appeler le constructeur ci-dessus avec "this(...);
+    this(CAPACITE_PAR_DEFAUT);
   }
 
   public void empiler(Object o) throws PilePleineException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estPleine()) {
+      throw new PilePleineException();
+    }
+    this.zone[this.ptr] = o;
+    this.ptr++;
   }
 
   public Object depiler() throws PileVideException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estVide()) {
+      throw new PileVideException();
+    }
+    this.ptr--;
+    return this.zone[this.ptr];
   }
 
   public Object sommet() throws PileVideException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estVide()) {
+      throw new PileVideException();
+    }
+    return this.zone[this.ptr];
   }
 
   public int taille() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.zone.length;
   }
 
   public int capacite() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.capacite;
   }
 
   public boolean estVide() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.zone.length == 0;
   }
 
   public boolean estPleine() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.zone.length == this.capacite;
   }
 
   @Override
   public boolean equals(Object o) {
-    // à compléter
-    return false;
+    if (o instanceof PileI) {
+      PileI p = (PileI) o;
+      return this.capacite() == p.capacite() && this.hashCode() == p.hashCode();
+    } else
+      return false;
   }
 
   // Est-ce correct?
@@ -74,7 +93,13 @@ public class Pile implements PileI {
 
   @Override
   public String toString() {
-    // à compléter
-    return null;
+    StringBuffer sb = new StringBuffer("[");
+    for (int i = ptr - 1; i >= 0; i--) {
+      sb.append(zone[i]);
+      if (i > 0)
+        sb.append(", ");
+    }
+    sb.append("]");
+    return sb.toString();
   }
 }
