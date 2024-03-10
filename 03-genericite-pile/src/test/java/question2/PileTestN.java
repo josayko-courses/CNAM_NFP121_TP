@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Constructor;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -25,10 +26,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class PileTestN {
   private PileI p1, p2, p;
 
-  // Pour l'instant junit5 ne permet pas de paramétrer le BeforeEach par les même paramètres que les
-  // tests. Donc on appelle la fixture à la main dans chaque test pour créer les objet de la bonne
+  // Pour l'instant junit5 ne permet pas de paramétrer le BeforeEach par les même
+  // paramètres que les
+  // tests. Donc on appelle la fixture à la main dans chaque test pour créer les
+  // objet de la bonne
   // classe.
-  // NOTE: On pourra améliorer ça quand on pourra paramétrer une classe de test. Ce qui semble prévu
+  // NOTE: On pourra améliorer ça quand on pourra paramétrer une classe de test.
+  // Ce qui semble prévu
   // dans junit (https://github.com/junit-team/junit5/issues/878).
 
   // A appeler au début de chaque méthode de test
@@ -44,8 +48,10 @@ public class PileTestN {
     }
   }
 
-  // Vous pouvez temporairement enlever certaines classes de ce stream afin de ne tester qu'un
-  // sous-ensemble des classes. Mais n'oubliez pas de remettre tout le moment venu.
+  // Vous pouvez temporairement enlever certaines classes de ce stream afin de ne
+  // tester qu'un
+  // sous-ensemble des classes. Mais n'oubliez pas de remettre tout le moment
+  // venu.
   private static Stream<Arguments> lesClassesAtester() {
     return Stream.of( // évite que le formatteur chang les sauts de ligne.
         Arguments.of(question2.Pile.class), //
@@ -61,5 +67,29 @@ public class PileTestN {
     assertEquals(PileI.CAPACITE_PAR_DEFAUT, p1.capacite());
   }
 
-  //compléter 
+  // compléter
+  @Test
+  public void test_01() throws Exception {
+    assertTrue(true);
+  }
+
+  @Test
+  public void test_02() throws Exception {
+    assertTrue(true);
+  }
+
+  @Test
+  public void test_03() throws Exception {
+    assertTrue(true);
+  }
+
+  @Test
+  public void test_04() throws Exception {
+    assertTrue(true);
+  }
+
+  @Test
+  public void test_05() throws Exception {
+    assertTrue(true);
+  }
 }

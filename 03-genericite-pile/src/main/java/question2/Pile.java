@@ -50,7 +50,7 @@ public class Pile implements PileI {
     if (estVide()) {
       throw new PileVideException();
     }
-    return this.zone[this.ptr];
+    return this.zone[this.ptr - 1];
   }
 
   public int taille() {
@@ -62,7 +62,7 @@ public class Pile implements PileI {
   }
 
   public boolean estVide() {
-    return this.zone.length == 0;
+    return this.ptr == 0;
   }
 
   public boolean estPleine() {
@@ -73,36 +73,39 @@ public class Pile implements PileI {
   public boolean equals(Object o) {
     if (o instanceof PileI) {
       PileI p = (PileI) o;
-      if (this.hashCode() != p.hashCode()) {
-        System.out.println("Différents hash codes");
-        return false;
-      }
-      if (this.capacite() != p.capacite()) {
-        System.out.println("Différentes capacités");
-        return false;
-
-      }
       if (this.taille() == p.taille()) {
-        for (int i = this.taille() - 1; i >= 0; i--) {
-          try {
-            if (this.zone[i] != p.depiler()) {
-              System.out.println("Différent éléments");
-              return false;
+        Boolean sameElements = true;
+        try {
+          Pile tmp = new Pile(p.capacite());
+          for (int i = this.taille() - 1; i >= 0; i--) {
+            Object el = p.depiler();
+            tmp.empiler(el);
+            if (this.zone[i] != el) {
+              sameElements = false;
+              break;
             }
-          } catch (PileVideException e) {
-            System.out.println("Différent éléments (vide)");
-            return false;
           }
+          int tailleTotale = tmp.taille();
+          for (int i = 0; i < tailleTotale; i++) {
+            Object t = tmp.depiler();
+            p.empiler(t);
+          }
+        } catch (Exception e) {
         }
-        // On reconstruit p après l'avoir dépilée
-      } else {
-        System.out.println("Différentes tailles");
-        return false;
+        System.out.println(p.toString());
+        System.out.println(this.toString());
+        if (sameElements)
+          System.out.println("sameElements");
+        if (this.capacite == p.capacite())
+          System.out.println("meme capacite");
+        if (this.hashCode() == p.hashCode())
+          System.out.println("meme hashcode");
+        return sameElements
+            && this.capacite() == p.capacite()
+            && this.hashCode() == p.hashCode();
       }
-      System.out.println("Égaux");
-      return true;
+      return false;
     }
-    System.out.println("pas une instance de PileI");
     return false;
   }
 
@@ -129,9 +132,6 @@ public class Pile implements PileI {
   @Override
   public String toString() {
     StringBuffer sb = new StringBuffer("[");
-    System.out.println(this.zone[0]);
-    System.out.println(this.zone[1]);
-    System.out.println(this.zone[2]);
     for (int i = this.taille() - 1; i >= 0; i--) {
       sb.append(zone[i]);
       if (i > 0)

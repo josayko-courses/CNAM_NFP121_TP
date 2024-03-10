@@ -1,6 +1,6 @@
 package question3;
 
-import question1.PolygoneRegulier;
+// import question1.PolygoneRegulier;
 
 public class UneUtilisation {
 

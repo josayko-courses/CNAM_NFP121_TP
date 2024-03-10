@@ -110,21 +110,53 @@ public class Pile4 implements PileI {
    */
   public String toString() {
     StringBuffer sb = new StringBuffer("[");
-    for (int i = 0; i < this.nombre; i++) {
-      sb.append(this.stk.element);
-      if (this.stk.suivant != null)
+    for (Maillon it = this.stk; it != null; it = it.suivant) {
+      sb.append(it.element);
+      if (it.suivant != null)
         sb.append(", ");
     }
     sb.append("]");
     return sb.toString();
   }
 
+  @Override
   public boolean equals(Object o) {
     if (o instanceof PileI) {
       PileI p = (PileI) o;
-      return this.capacite() == p.capacite() && this.hashCode() == p.hashCode();
-    } else
+      if (this.taille() == p.taille()) {
+        Boolean sameElements = true;
+        try {
+          Pile tmp = new Pile(p.capacite());
+          for (Maillon it = this.stk; it != null; it = it.suivant) {
+            Object el = p.depiler();
+            tmp.empiler(el);
+            if (it.element != el) {
+              sameElements = false;
+              break;
+            }
+          }
+          int tailleTotale = tmp.taille();
+          for (int i = 0; i < tailleTotale; i++) {
+            Object t = tmp.depiler();
+            p.empiler(t);
+          }
+        } catch (Exception e) {
+        }
+        System.out.println(p.toString());
+        System.out.println(this.toString());
+        if (sameElements)
+          System.out.println("sameElements");
+        if (this.capacite == p.capacite())
+          System.out.println("meme capacite");
+        if (this.hashCode() == p.hashCode())
+          System.out.println("meme hashcode");
+        return sameElements
+            && this.capacite() == p.capacite()
+            && this.hashCode() == p.hashCode();
+      }
       return false;
+    }
+    return false;
   }
 
   public int capacite() {

@@ -43,6 +43,7 @@ public class Pile2 implements PileI {
   }
 
   public Object sommet() throws PileVideException {
+    System.out.println(this.toString());
     if (estVide()) {
       throw new PileVideException();
     }
@@ -85,26 +86,44 @@ public class Pile2 implements PileI {
     return sb.toString();
   }
 
+  @Override
   public boolean equals(Object o) {
     if (o instanceof PileI) {
       PileI p = (PileI) o;
       Boolean sameElements = true;
       if (this.taille() == p.taille()) {
-        for (int i = this.taille() - 1; i >= 0; i--) {
-          try {
-            if (this.stk.get(i) != p.depiler()) {
-              return false;
+        try {
+          Pile tmp = new Pile(p.capacite());
+          for (int i = this.taille() - 1; i >= 0; i--) {
+            Object el = p.depiler();
+            tmp.empiler(el);
+            if (this.stk.get(i) != el) {
+              sameElements = false;
+              break;
             }
-          } catch (PileVideException e) {
-            return false;
           }
+          int tailleTotale = tmp.taille();
+          for (int i = 0; i < tailleTotale; i++) {
+            Object t = tmp.depiler();
+            p.empiler(t);
+          }
+        } catch (Exception e) {
         }
-      } else
-        sameElements = false;
-      return sameElements
-          && this.capacite() == p.capacite() && this.hashCode() == p.hashCode();
-    } else
+        System.out.println(p.toString());
+        System.out.println(this.toString());
+        if (sameElements)
+          System.out.println("sameElements");
+        if (this.capacite == p.capacite())
+          System.out.println("meme capacite");
+        if (this.hashCode() == p.hashCode())
+          System.out.println("meme hashcode");
+        return sameElements
+            && this.capacite() == p.capacite()
+            && this.hashCode() == p.hashCode();
+      }
       return false;
+    }
+    return false;
   }
 
   // fonction fournie
