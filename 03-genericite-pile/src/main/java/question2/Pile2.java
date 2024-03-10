@@ -88,7 +88,21 @@ public class Pile2 implements PileI {
   public boolean equals(Object o) {
     if (o instanceof PileI) {
       PileI p = (PileI) o;
-      return this.capacite() == p.capacite() && this.hashCode() == p.hashCode();
+      Boolean sameElements = true;
+      if (this.taille() == p.taille()) {
+        for (int i = this.taille() - 1; i >= 0; i--) {
+          try {
+            if (this.stk.get(i) != p.depiler()) {
+              return false;
+            }
+          } catch (PileVideException e) {
+            return false;
+          }
+        }
+      } else
+        sameElements = false;
+      return sameElements
+          && this.capacite() == p.capacite() && this.hashCode() == p.hashCode();
     } else
       return false;
   }

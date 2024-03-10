@@ -70,8 +70,8 @@ public class Pile4 implements PileI {
   public Object depiler() throws PileVideException {
     if (estVide())
       throw new PileVideException();
-    Maillon tmp = this.stk.suivant;
-    Object el = this.stk.element;
+    Maillon tmp = this.stk.suivant();
+    Object el = this.stk.element();
     this.stk = tmp;
     this.nombre--;
     return el;

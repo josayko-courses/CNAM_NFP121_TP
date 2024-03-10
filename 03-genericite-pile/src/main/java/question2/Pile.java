@@ -41,7 +41,9 @@ public class Pile implements PileI {
       throw new PileVideException();
     }
     this.ptr--;
-    return this.zone[this.ptr];
+    Object el = this.zone[this.ptr];
+    this.zone[this.ptr] = null;
+    return el;
   }
 
   public Object sommet() throws PileVideException {
@@ -52,7 +54,7 @@ public class Pile implements PileI {
   }
 
   public int taille() {
-    return this.zone.length;
+    return this.ptr;
   }
 
   public int capacite() {
@@ -64,16 +66,44 @@ public class Pile implements PileI {
   }
 
   public boolean estPleine() {
-    return this.zone.length == this.capacite;
+    return this.ptr == this.capacite;
   }
 
   @Override
   public boolean equals(Object o) {
     if (o instanceof PileI) {
       PileI p = (PileI) o;
-      return this.capacite() == p.capacite() && this.hashCode() == p.hashCode();
-    } else
-      return false;
+      if (this.hashCode() != p.hashCode()) {
+        System.out.println("Différents hash codes");
+        return false;
+      }
+      if (this.capacite() != p.capacite()) {
+        System.out.println("Différentes capacités");
+        return false;
+
+      }
+      if (this.taille() == p.taille()) {
+        for (int i = this.taille() - 1; i >= 0; i--) {
+          try {
+            if (this.zone[i] != p.depiler()) {
+              System.out.println("Différent éléments");
+              return false;
+            }
+          } catch (PileVideException e) {
+            System.out.println("Différent éléments (vide)");
+            return false;
+          }
+        }
+        // On reconstruit p après l'avoir dépilée
+      } else {
+        System.out.println("Différentes tailles");
+        return false;
+      }
+      System.out.println("Égaux");
+      return true;
+    }
+    System.out.println("pas une instance de PileI");
+    return false;
   }
 
   // Est-ce correct?
@@ -84,6 +114,11 @@ public class Pile implements PileI {
   // }else
   // return false;
   // }
+  // Réponse: ce n'est pas correcte car on ne vérifie pas que le contenu de la
+  // pile doit être similaire (même éléments de même valeur dans le même ordre)
+
+  // On ne peut pas vérifier l'égalité des piles en comparant uniquement leur
+  // représentation en string car les types des éléments ne sont pas vérifier
 
   // fonction fournie
   @Override
@@ -94,7 +129,10 @@ public class Pile implements PileI {
   @Override
   public String toString() {
     StringBuffer sb = new StringBuffer("[");
-    for (int i = ptr - 1; i >= 0; i--) {
+    System.out.println(this.zone[0]);
+    System.out.println(this.zone[1]);
+    System.out.println(this.zone[2]);
+    for (int i = this.taille() - 1; i >= 0; i--) {
       sb.append(zone[i]);
       if (i > 0)
         sb.append(", ");
