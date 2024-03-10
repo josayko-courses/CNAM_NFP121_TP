@@ -6,52 +6,74 @@ import question1.PileVideException;
 
 public class Pile3 implements PileI {
   private Vector<Object> v;
+  private int capacite;
 
   public Pile3() {
-    // à completer, on peut appeler le constructeur ci-dessous avec "this(...); 
+    this(CAPACITE_PAR_DEFAUT);
   }
 
   public Pile3(int taille) {
-    // à compléter 
+    if (taille < 0) {
+      taille = CAPACITE_PAR_DEFAUT;
+    }
+    this.capacite = taille;
+    this.v = new Vector<>();
   }
 
   public void empiler(Object o) throws PilePleineException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estPleine()) {
+      throw new PilePleineException();
+    }
+    this.v.add(o);
   }
 
   public Object depiler() throws PileVideException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estVide()) {
+      throw new PileVideException();
+    }
+    return this.v.remove(this.v.size() - 1);
   }
 
   public Object sommet() throws PileVideException {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    if (estVide()) {
+      throw new PileVideException();
+    }
+    return this.v.lastElement();
   }
 
   public int taille() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.v.size();
   }
 
   public int capacite() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.capacite;
   }
 
   public boolean estVide() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.v.isEmpty();
   }
 
   public boolean estPleine() {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return this.v.size() == this.capacite;
   }
 
   public String toString() {
-    String s = "[";
-    // à compléter 
-    return s + "]";
+    StringBuffer sb = new StringBuffer("[");
+    for (int i = this.v.size() - 1; i >= 0; i--) {
+      sb.append(this.v.get(i));
+      if (i > 0)
+        sb.append(", ");
+    }
+    sb.append("]");
+    return sb.toString();
   }
 
   public boolean equals(Object o) {
-    // à compléter
-    return (false); 
+    if (o instanceof PileI) {
+      PileI p = (PileI) o;
+      return this.capacite() == p.capacite() && this.hashCode() == p.hashCode();
+    } else
+      return false;
   }
 
   // fonction fournie
