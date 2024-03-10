@@ -18,6 +18,7 @@ public class VisitorCode extends org.apache.bcel.classfile.EmptyVisitor {
   public void visitMethod(Method m) {
     Code code = m.getCode();
     System.out.println("###code of " + m.toString() + "= [[[[" + code + "###]]]]]");
+    @SuppressWarnings("resource")
     Scanner vSc = new Scanner(code.toString());
     String vL = null;
 
@@ -30,7 +31,8 @@ public class VisitorCode extends org.apache.bcel.classfile.EmptyVisitor {
         String[] line = vL.split("\\s+");
         infoClass.addCall(m, line[2] + line[3]);
       }
-      // Cas particulier, si on voit un pop on enregistre un appel à la méthode imaginaire #pop#.
+      // Cas particulier, si on voit un pop on enregistre un appel à la méthode
+      // imaginaire #pop#.
       // Dans certains cas on veut tester qu'il n'y a pas de pop, c'est-à-dire qu'on
       // ne jette pas un résultat de méthode.
       if (vL.contains("pop")) {
@@ -52,17 +54,22 @@ public class VisitorCode extends org.apache.bcel.classfile.EmptyVisitor {
           infoClass.addCall(m, "#goto#");
         }
         // On veut parfois différencier les jump en arrière des jump en avant...
-        // En fait ça servait à détecter les boucles mais elles ne sont plus compilées de la même
-        // façon maintenant... Le goto est vers l'avant et le retour se fait par un if (ifne ou
-        // autre). Donc pour les TPs en général on cherche un goto et ça indique une structure de
+        // En fait ça servait à détecter les boucles mais elles ne sont plus compilées
+        // de la même
+        // façon maintenant... Le goto est vers l'avant et le retour se fait par un if
+        // (ifne ou
+        // autre). Donc pour les TPs en général on cherche un goto et ça indique une
+        // structure de
         // boucle ou qqchose de compliqué qui ne devrait pas être là...
         int currentLine = Integer.parseInt(line[0], 0, line[0].length() - 1, 10); // "34:" -> 34
         int jumpLine = Integer.parseInt(line[2].substring(1)); // "#42" -> 42
-        if (jumpLine < currentLine) infoClass.addCall(m, "#gotoBackward#");
-        else infoClass.addCall(m, "#gotoForward#");
+        if (jumpLine < currentLine)
+          infoClass.addCall(m, "#gotoBackward#");
+        else
+          infoClass.addCall(m, "#gotoForward#");
       }
       // Les lambda on cette forme:
-      // 32:  invokedynamic 0:execute
+      // 32: invokedynamic 0:execute
       // (Lquestion1/TestsACompleter;)Lorg/junit/jupiter/api/function/Executable;
       if (vL.contains(":execute")) {
         String[] line = vL.split("\\s+");

@@ -141,15 +141,8 @@ public class Pile4 implements PileI {
             p.empiler(t);
           }
         } catch (Exception e) {
+          //
         }
-        System.out.println(p.toString());
-        System.out.println(this.toString());
-        if (sameElements)
-          System.out.println("sameElements");
-        if (this.capacite == p.capacite())
-          System.out.println("meme capacite");
-        if (this.hashCode() == p.hashCode())
-          System.out.println("meme hashcode");
         return sameElements
             && this.capacite() == p.capacite()
             && this.hashCode() == p.hashCode();

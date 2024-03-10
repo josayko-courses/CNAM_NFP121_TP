@@ -77,29 +77,25 @@ public class Pile implements PileI {
         Boolean sameElements = true;
         try {
           Pile tmp = new Pile(p.capacite());
-          for (int i = this.taille() - 1; i >= 0; i--) {
+          int tailleTotale = this.taille();
+          for (int i = tailleTotale - 1; i >= 0; i--) {
             Object el = p.depiler();
             tmp.empiler(el);
-            if (this.zone[i] != el) {
+            // On vérifie que la taille n'as pas changer sinon cela signifie que la même
+            // pile est comparé à elle-même (elle a été dépilé) donc pas besoin de vérifier
+            // ses éléments
+            if (tailleTotale == this.taille() && this.zone[i] != el) {
               sameElements = false;
               break;
             }
           }
-          int tailleTotale = tmp.taille();
           for (int i = 0; i < tailleTotale; i++) {
             Object t = tmp.depiler();
             p.empiler(t);
           }
         } catch (Exception e) {
+          // N'arrive jamais dans ce cas car vérifier la taille est vérifier
         }
-        System.out.println(p.toString());
-        System.out.println(this.toString());
-        if (sameElements)
-          System.out.println("sameElements");
-        if (this.capacite == p.capacite())
-          System.out.println("meme capacite");
-        if (this.hashCode() == p.hashCode())
-          System.out.println("meme hashcode");
         return sameElements
             && this.capacite() == p.capacite()
             && this.hashCode() == p.hashCode();

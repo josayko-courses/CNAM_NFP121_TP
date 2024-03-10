@@ -3,6 +3,7 @@ package question2;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("unused")
 public class Uniquement_Pour_La_Question2_5 {
   @Test
   public void test_equals_question2_5() throws Exception {

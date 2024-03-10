@@ -24,6 +24,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 // utiliser.
 
 public class PileTestN {
+  @SuppressWarnings("unused")
   private PileI p1, p2, p;
 
   // Pour l'instant junit5 ne permet pas de paramétrer le BeforeEach par les même
