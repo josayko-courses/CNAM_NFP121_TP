@@ -1,0 +1,12 @@
+// Configuration pour le plugin java
+// Ceci es tutilisé par le build.gradle por les cible "run" et 
+ext {
+     mainJavaClass = "XXX"
+}
+//ceci peut être utilisé plus bas
+project.ext.tpnum = "tp4"
+
+dependencies {
+    testImplementation(files("testlib/ZTestOfficial.jar"))
+}
+
