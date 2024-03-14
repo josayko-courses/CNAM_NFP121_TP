@@ -1,0 +1,25 @@
+// Configuration pour le plugin java
+// Ceci es tutilisé par le build.gradle por les cible "run" et 
+ext {
+     mainJavaClass = "question1.Main"
+}
+
+//ceci peut être utilisé plus bas
+project.ext.tpnum = "tp1"
+
+// On peut overrider une tâche comme ceci:
+//task foo(type: Jar, overwrite: true) { }
+
+/* SOLUTION (rien) */
+
+dependencies {
+    testImplementation(files("testlib/ZTestOfficial.jar"))
+}
+
+// Ne pas modifier la ligne ci-dessus
+task allJars {
+    description = 'Create all the ihm_xxx.jar for demo/testing.'
+    group = 'distribution'
+ //dependsOn "jarEnClair"
+}
+/* FIN SOLUTION */

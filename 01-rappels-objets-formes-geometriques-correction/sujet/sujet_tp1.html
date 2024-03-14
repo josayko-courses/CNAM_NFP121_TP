@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NFP121 programmation avancée – TP1 – Mise en jambe, Soumission des TPs</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cedric.cnam.fr/~courtiep/nfp121/github_style.css" />
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">NFP121 programmation avancée – TP1 – Mise en jambe,
+Soumission des TPs</h1>
+</header>
+<!-- ## ![](https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/prerequis.png) <font color="red">OBSOLÈTE (IDE au choix)</font> Avoir installer la dernière version de BlueJ -->
+<!-- ## ![](https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/introduction.png) <font color="red">OBSOLÈTE (git)</font> Utilisation de BlueJ et soumission de vos travaux au CNAM -->
+<!-- - Télécharger l'archive `tp1.jar`, dans le répertoire de votre choix, -->
+<!-- par exemple `E:/tp_java/` -->
+<!-- - Lancer Bluej, puis dans le Menu `Projet`, choisir l'item `Open -->
+<!--   ZIP/JAR...`, sélectionnez cette archive `tp1.jar` -->
+<h2 id="java-17-junit5-git"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/prerequis.png" />
+Java 17, Junit5, Git</h2>
+<hr>
+<h2
+id="utilisation-de-gradle-et-de-git-pour-évaluer-et-soumettre-un-tp"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/introduction.png" />
+Utilisation de gradle et de git pour évaluer et soumettre un TP</h2>
+<ul>
+<li>clonez votre projet personnel si ce n’est pas déjà fait, sinon
+faites <code>git pull</code></li>
+<li>le tp se trouve dans le répertoire
+<code>&lt;projet personnel&gt;/01-...</code></li>
+<li>l’énoncé est dans le répertoire
+<code>&lt;projet personnel&gt;/t01-.../sujet/sujet_tp1.html</code>. Il
+est aussi sur moodle.</li>
+<li>importez ce projet dans votre IDE préféré, en suivant la procédure
+décrite dans la section “Outils -&gt; Méthodes et outils… -&gt; Fiche
+pratique pour les TPs”</li>
+<li>générez la documentation javadoc, elle vous sera utile pour
+comprendre le code et répondre aux questions</li>
+<li>la structure des paquetages est la suivante:<br>
+<img border="0" src="images/tp1.ht1.jpg" width="800" height="600"></li>
+<li>les 3 questions correspondent aux 3 paquetages.</li>
+</ul>
+<hr>
+<h2 id="introduction"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question1.png" />
+Introduction</h2>
+<p>Champs, constructeurs, méthodes et instances d’une classe
+(introduction extraite du livre Objects First de M. Kölling,
+<a target="_blank" href="http://jfod.cnam.fr/progAvancee/objects-first-ch1.pdf">chapitre
+1 de Objects-First</a>).</p>
+<ol type="1">
+<li><mark>Allez</mark> dans le paquetage <code>question1</code></li>
+<li>Modifiez les 3 classes <code>Circle</code>, <code>Square</code> et
+<code>Triangle</code> pour y ajouter des méthodes getter</li>
+<li>Ajoutez une nouvelle classe avec une méthode <code>main</code> et
+<mark>créez</mark> dedans plusieurs instances de ces 3 classes</li>
+<li>Rendez les visibles en appliquant la méthode
+<code>makeVisible</code> sur chaque instance</li>
+<li><mark>Déclenchez</mark> d’autres méthodes d’instance,</li>
+<li><mark>Vérifier</mark> après coup les valeurs des variables de vos
+instance via les méthodes getter</li>
+</ol>
+<!-- Une première [documentation](./doc/index.html) -->
+<img src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2.png" width="101" height="80" />
+<hr>
+<h2 id="introduction-suite">Introduction suite</h2>
+<ol type="1">
+<li>Allez dans le packetage <code>quesiton2</code>.</li>
+<li>Dans une nouvelle classe avec méthode <code>main</code>,
+<mark>créer</mark> une instance de la classe <code>Picture</code>,</li>
+<li>Modifier le source <code>Picture.java</code> afin que le soleil soit
+bleu,</li>
+<li><mark>Ajouter</mark> une nouvelle donnée d’instance : un nouveau
+soleil (jaune…),</li>
+<li><mark>Ajouter</mark> une nouvelle méthode à la classe
+<code>Picture</code> permettant au soleil (bleu) de se coucher (si la
+terre est fixe…), voir la méthode <code>slowMoveVertical</code> de la
+classe <code>Circle</code>.</li>
+</ol>
+<!-- Répondre aux autres exercices du [chapitre 1 de -->
+<!-- Objects-First](http://jfod.cnam.fr/progAvancee/objects-first-ch1.pdf) -->
+<hr>
+<h2 id="introduction-tests-mise-en-oeuvre"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question3.png" />
+Introduction, tests, mise en oeuvre</h2>
+<ol type="1">
+<li>Le paquetage <code>question3</code> contient la classe
+<code>AuditeurCnam</code> fondée sur le squelette de programme
+suivant:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> AuditeurCNAM <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* l&#39;attribut nom de chaque auditeur. */</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> nom<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">/** l&#39;attribut prenom de chaque auditeur. */</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> prenom<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">/** l&#39;attribut matricule de chaque auditeur. */</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> matricule<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">     * &quot;Création&quot;, le constructeur d&#39;un auditeur avec son nom, son prénom et son</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">     * matricule.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">     * </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param nom</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">     *            le nom de l&#39;auditeur</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param prenom</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">     *            son prénom</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param matricule</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">     *            sur la carte d&#39;inscription, près de la photo</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">AuditeurCNAM</span><span class="op">(</span><span class="bu">String</span> nom<span class="op">,</span> <span class="bu">String</span> prenom<span class="op">,</span> <span class="bu">String</span> matricule<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">nom</span> <span class="op">=</span> nom<span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">prenom</span> <span class="op">=</span> prenom<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">matricule</span> <span class="op">=</span> matricule<span class="op">;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">     * le login au Cnam : 6 premières lettres du nom suivies de la première</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co">     * lettre du prénom séparées de &#39;_&#39; . le login retourné est en minuscules,</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">     * le trait d&#39;union, ou spéciaux &lt;i&gt;(pour unix)&lt;/i&gt; sont remplacés par des</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co">     * &#39;_&#39; pas de caractères accentués pour le login voir les classes</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co">     * prédéfines, java.lang.String : les méthodes replaceAll, toLowerCase et</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">     * substring java.lang.Math : la méthode min.&lt;br&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">     * </span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">     * @return le login du Cnam simplifié, sans les adaptations dues aux</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">     *         homonymes...</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">login</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&quot;&quot;</span><span class="op">;</span><span class="co">// à compléter</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co">     * Retourne le nom de l&#39;auditeur.</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co">     * @return son nom</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">nom</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span><span class="co">// à compléter</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co">     * Retourne le prénom de l&#39;auditeur.</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="co">     * @return son prénom</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">prenom</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span><span class="co">// à compléter</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">     * Retourne la matricule de l&#39;auditeur.</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co">     * @return son matricule</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">matricule</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span><span class="co">// à compléter</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co">     * Méthode toString ( méthode redéfinie de la classe Object).</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="co">     * @return la concaténation du nom, du prénom et du login, selon cette</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="co">     *         syntaxe</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co">     *         &lt;code&gt;nom() + &quot; &quot; + prenom() +  &quot; login : &quot; + login()&lt;/code&gt;</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">toString</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">nom</span><span class="op">()</span> <span class="op">+</span> <span class="st">&quot; &quot;</span> <span class="op">+</span> <span class="fu">prenom</span><span class="op">()</span> <span class="op">+</span> <span class="st">&quot; login : &quot;</span> <span class="op">+</span> <span class="fu">login</span><span class="op">();</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> </span></code></pre></div>
+<!-- <mark>Lire</mark> la [documentation](./docs/index.html) de cette
+  classe (mais vous pouvez la re-générer avec `gradle javadoc` et elle
+  apparaîtra dans `build/docs/javadoc/`)-->
+<ul>
+<li><mark>Complétez cette classe</mark></li>
+<li><mark>Dans une nouvelle classe avec méthode main, créez plusieurs
+instances</mark>, et vérifiez la valeur des données d’instances</li>
+<li><mark>Exécutez les tests</mark> unitaires proposés, ceux-ci sont
+minimaux. Complétez-les avec quelques tests en plus.</li>
+<li><mark>Exécutez les tests</mark> de notation et faites en sorte
+qu’ils passent. Il faudra comprendre les cas d’erreur en consultant les
+messages d’erreur et le cas échéant les fichiers de test. Par exemple
+certains tests exigent que vos tests contiennent un certain nombre
+d’appels à des méthodes de <code>AuditeurCNAM</code>.</li>
+</ul>
+<h1 id="conseils-valables-pour-la-suite-du-semestre">Conseils valables
+pour la suite du semestre:</h1>
+<p><strong>Conseil</strong>: lisez bien le message d’erreur du test, en
+général il donne des informations sur ce qui était testé.</p>
+<p><strong>Astuce 1</strong>: Ensuite consultez le code du test (si il
+est disponible, voir plus bas). En général si vous lancez les tests via
+votre IDE vous pouvez double cliquer sur le <em>rapport</em> du test
+dans l’IDE et cela ouvre le fichier à l’endroit où le test a échoué.</p>
+<p><strong>Astuce 2</strong>: En général les IDE permettent de lancer un
+seul test à la fois, voire un seul fichier de test à la fois. Trouvez
+comment faire, cela vous permettra d’être plus productif: certains
+projets (y compris en NFP121) ont des tests qui sont assez longs et qui
+exigent parfois que vous ne touchiez ni au clavier ni à la souris,
+pouvoir ne lancer qu’un seul test à la fois est donc vraiment utile.</p>
+<p><strong>Remarque</strong>: Les fichiers <code>markXXX.java</code>
+sont les fichiers contenant les tests d’évaluation de votre TP. Cela ne
+veut pas dire que le TP est nécessairement noté, seulement que ce sont
+les tests du profs et que si vous voulez écrire des tests il faut le
+faire dans un autre fichier.</p>
+<p><strong>Remarque</strong>: Dans ce tp les tests de notation
+<code>markXXX.java</code> sont donnés en clair. Parfois ce ne sera pas
+le cas car écrire des tests pertinents (dans un autre fichier) sera un
+des exercices du tp. Les tests de notations seront alors donnés sous la
+forme d’un fichier <code>testlib/ZTestOfficial.jar</code> contenant les
+fichiers <code>.class</code> (sous forme déjà compilée donc). Vous
+pourrez donc lancer les tests du prof, voir les résultats et les
+messages d’erreur, mais pas le code.</p>
+</body>
+</html>
