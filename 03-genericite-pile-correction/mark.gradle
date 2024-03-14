@@ -1,0 +1,55 @@
+// Configuration pour le plugin java
+// Ceci es tutilisé par le build.gradle por les cible "run" et 
+ext {
+     mainJavaClass = "question3.UneUtilisation"
+}
+
+dependencies {
+    testImplementation(files("testlib/ZTestOfficial.jar"))
+}
+
+// "gradle squelClasses" n'essaiera pas de compiler les deux classes
+// qui ne compile pas intentionnellement
+sourceSets {
+  squel {
+        description = 'Compilation du squelette (sauf question1/UneUtilisation.java et question3/UneUtilisation.java).'
+    java {
+      source(sourceSets.main.java)
+      filter.exclude("**/question1/UneUtilisation.java")
+      filter.exclude("**/question3/UneUtilisation.java")
+    }
+  }
+}
+
+//ceci peut être utilisé plus bas
+project.ext.tpnum = "tp3"
+
+/* SOLUTION (rien) */
+// Ne pas modifier la ligne ci-dessus
+
+// This works to build ihm.jar only if question1 and question3 are solved.
+task jarForIHM(type: Jar, dependsOn: [compileJava, compileTestJava, test]) {// ceci échoue dans ce tp, dependsOn: [compileJava, compileTestJava]
+  manifest {
+        attributes ('Implementation-Title': 'Reference implementation for IHM Farenheit',
+                    'Main-Class': 'question1.IHMPile' )
+    }
+  group = 'distribution'
+  description = 'Create the ihm.jar for demo/testing.'
+  archiveFileName = "ihm.jar"
+  destinationDirectory = file(".")
+  from file("${buildDir}/classes/java/main")
+  include 'question3/*.class'
+  include 'question1/*.class'
+  exclude 'Z_*.class'
+  exclude '**/Z_*.class'
+}
+
+
+task allJars {
+    description = 'Create all the ihm_xxx.jar for demo/testing.'
+ group = 'distribution'
+ dependsOn "jarEnClair"
+ dependsOn "jarForIHM"
+}
+
+/* FIN SOLUTION */

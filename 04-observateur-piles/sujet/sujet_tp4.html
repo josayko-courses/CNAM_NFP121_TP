@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NFP121 programmation avancée – TP4 – Les piles</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cedric.cnam.fr/~courtiep/nfp121/github_style.css" />
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">NFP121 programmation avancée – TP4 – Les piles</h1>
+</header>
+<h2 id="lecture-préalable"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/prerequis.png" />
+Lecture préalable</h2>
+<!-- Trouver plus récent? -->
+<ul>
+<li>Pattern Observateur</li>
+<li>Modèle MVC</li>
+</ul>
+<hr>
+<h2 id="rappels"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/prerequis.png" />
+Rappels</h2>
+<p>Utilisation de gradle et de git pour évaluer et soumettre un TP:</p>
+<ul>
+<li>clonez votre projet personnel si ce n’est pas déjà fait, sinon
+faites <code>git pull</code></li>
+<li>le tp se trouve dans le répertoire
+<code>&lt;projet personnel&gt;/04-...</code> ou bien
+<code>&lt;projet personnel&gt;/04-...</code>
+<!-- - l'énoncé est dans le répertoire `<projet personnel>/sujet/sujet_tp4.html` --></li>
+<li>lorsque vous voulez soumettre ou “tamponner” une version du TP,
+faites <code>git add &lt;les fichier à comiter&gt;</code>, puis
+<code>git commit -m   "message de commit"</code>, et enfin
+<code>git push</code>. N’oubliez pas: si l’archive distante a été
+modifiée (par exemple à cause d’un nouveau TP poussé par nos soins)
+alors le <code>git push</code> échouera il il faudra faire un
+<code>git pull</code> au préalable.</li>
+<li>ne modifiez pas les classes dont le nom commence par
+<code>Mark</code> ou par <code>Z_</code>.</li>
+</ul>
+<hr>
+<h2 id="pattern-observateurobservé"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question1.png" />
+Pattern Observateur/Observé</h2>
+<p>Soit le Pattern Observateur en notation UML selon LA référence en
+pattern : “Design Patterns Elements of Reusable Object-Oriented
+Software” , Erich Gamma, Richard Helm, Ralph Johnson and John Vlissides
+(GOF) , ed. Addison-Wesley, 1995. (existe en français)</p>
+<center>
+<img src="images/observer1.png" width="647" height="275" />
+</center>
+<p>En Java, le paquetage <code>java.util</code> implémente ce
+Pattern.</p>
+<p>Il propose la classe <a
+href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Observable.html">Observable</a>
+pour <code>Subject</code> du diagramme ci-dessus et l’interface <a
+href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Observer.html">Observer</a>
+(même nom dans le diagramme ci dessus) (lire leur javadoc dans la
+documentation JAVA).</p>
+<p>Notez que <code>Observable</code> et <code>Observer</code> sont
+maintenant considérées comme obsolètes, mais elles nous suffiront
+amplement pour ce TP.</p>
+<p><strong>Les participants</strong></p>
+<ul>
+<li>L’observé: la classe <code>Subject</code> ou
+<code>java.util.Observable</code></li>
+<li>L’observateur: ici l’interface <code>Observer</code> ou
+<code>java.util.Observer</code></li>
+<li>L’observé concret: la classe <code>ConcreteSubject</code> qui hérite
+de <code>Observable</code></li>
+<li>L’observateur concret: la classe <code>ConcreteObserver</code>, qui
+implémente l’interface <code>Observer</code>, et qui utilise une
+référence du sujet <code>ConcreteSubject</code> qu’il observe et réagit
+à chaque mise à jour</li>
+</ul>
+<p><strong>Premier exemple d’implantation de ce pattern en
+Java.</strong></p>
+<p><strong>Classes retenues et proposée dans le paquetage
+<code>question1</code></strong>:</p>
+<p>Pour cette question, nous considérons les deux classes <strong>déjà
+implantées</strong> décrites ci-dessous. L’exercice consistera à
+implanter les tests de bon fonctionnement des ces deux classes.</p>
+<ul>
+<li>La classe <code>ConcreteSubject</code> hérite de
+<code>java.util.Observable</code> (l’observé) et gère une liste de
+chaines (<code>String</code>), chaque modification de cette liste -
+introduction d’une nouvelle chaîne - (cf. méthode <code>insert</code>)
+engendre une notification aux observateurs en passant la nouvelle chaîne
+en paramètre…</li>
+<li>La classe <code>ConcreteObserver</code> (observateur) à chaque
+notification, affiche cette nouvelle chaîne et mémorise l’origine des
+notifications (attribut <code>senders</code>) et les paramètres transmis
+(attribut <code>parameters</code>).</li>
+<li>La mémorisation du notifiant et du paramètre transmis utilise deux
+piles (<code>java.util.Stack</code>), <code>senders</code> et
+<code>arguments</code>, accessibles de l’“extérieur” par les méthodes
+<code>public Stack senders(){...}</code> et
+<code>public Stack parameters(){...}</code></li>
+</ul>
+<p>Nous souhaitons développer une classe de tests afin de “vérifier” le
+fonctionnement de l’implantation de ce Pattern. Quelques exemples de
+“validation” et d’assertions:</p>
+<ul>
+<li><mark>Vérifier que lors d’une notification</mark>, TOUS les
+observateurs ont bien été informés,</li>
+<li><mark>Vérifier</mark> que les arguments ont bien été transmis</li>
+<li><mark>Vérifier</mark> que le notifiant est le bon …etc …</li>
+</ul>
+<p>Extrait du code de vérification : classe “TestPatternObservateur”</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> TestPatternObservateur <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">@Test</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">testNotify</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    ConcreteSubject list<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    ConcreteObserver observer<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    list <span class="op">=</span> <span class="kw">new</span> <span class="fu">ConcreteSubject</span><span class="op">();</span>           <span class="co">// création d&#39;un &quot;observé&quot; constitué d&#39;une liste</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    observer <span class="op">=</span> <span class="kw">new</span> <span class="fu">ConcreteObserver</span><span class="op">();</span>      <span class="co">// création d&#39;un observateur</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    list<span class="op">.</span><span class="fu">addObserver</span><span class="op">(</span>observer<span class="op">);</span>             <span class="co">// ajouter cet observateur à la liste</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    list<span class="op">.</span><span class="fu">insert</span><span class="op">(</span><span class="st">&quot;il fait beau, ce matin&quot;</span><span class="op">);</span>  <span class="co">// modification de cette liste, l&#39;observateur</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                                            <span class="co">// (devrait) être notifié</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// &quot;vérification&quot; :</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assertFalse</span><span class="op">(</span>observer<span class="op">.</span><span class="fu">senders</span><span class="op">().</span><span class="fu">empty</span><span class="op">());</span> <span class="co">// elle ne doit pas être vide,</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assertEquals</span><span class="op">(</span>list<span class="op">,</span> observer<span class="op">.</span><span class="fu">senders</span><span class="op">().</span><span class="fu">pop</span><span class="op">());</span> <span class="co">// est-ce le bon émetteur ?</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assertEquals</span><span class="op">(</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;il fait beau, ce matin&quot;</span><span class="op">,</span> observer<span class="op">.</span><span class="fu">arguments</span><span class="op">().</span><span class="fu">pop</span><span class="op">());</span> <span class="co">// le paramètre reçu est-il correct ?</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">//...</span></span></code></pre></div>
+<!-- Un exemple de test avec BlueJ: vérification qu'un observateur est bien notifié avec le paramètre bien reçu. -->
+<p><mark><strong>Complétez les 3 méthodes de test de la classe
+“TestPatternObservateur”.</strong> </mark></p>
+<center>
+<p><img
+src="plantuml-images/46c13f82d73f5a7cafd6a1c0c22add9f061f649d.svg" /></p>
+</center>
+<!-- <center> ![](images/bluej1.png) </center> -->
+<hr>
+<h2 id="introduction-aux-événements-de-lawt"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_1.png" />
+Introduction aux événements de l’AWT</h2>
+<h3
+id="remarque-les-pattern-observateurs-sont-un-peu-partout-attention-à-ne-pas-les-confondre">REMARQUE:
+les pattern observateurs sont un peu partout attention à ne pas les
+confondre</h3>
+<p><em>Le pattern observateur est utilisé en java par les API AWT ou
+Swing pour la gestion des évènements sur un élément graphique. Par
+exemple, comme expliqué dans le cours sur le MVC on ajoute une
+“réaction” à un clic sur un bouton <code>bouton</code> en appelant la
+méthode <code>bouton.addActionListener(ActionListener a)</code>. Cette
+appel de méthode correspond en fait à l’ajout d’un observateur
+<code>a</code> sur le bouton <code>bouton</code> (cf
+<code>addObserver</code>). Le bouton notifiera l’objet <code>a</code>
+lorsqu’un clic aura lieu.</em></p>
+<p>*Les notifications sont ici engendrées par un changement d’état de
+l’interface graphique: un clic sur un bouton, un déplacement de souris,
+etc… Ce pattern observateur est donc implanté sur chaque élément
+graphique (JButton, JSlider etc, CF Cours MVC).</p>
+<p>Donc attention: il y a souvent des observateurs à deux niveaux:</p>
+<ol type="1">
+<li>L’API Swing implémente sur chaque élément graphique un pattern
+observateur: <code>addActionListener</code> correspond à un
+<code>addObserver</code>.</li>
+<li>Au niveau de notre IHM nous implanterons nous-même souvent un
+pattern observateur entre le “modèle” (Cf cours MVC) et la “Vue”.</li>
+</ol>
+<p>Dans la question 3 on mettra un place un MVC nous-même en plus, donc
+nous aurons les 2 niveaux, mais pour la présente question 2 il est
+seulement question du niveau 1: on utilise
+<code>addActionListener</code>.</p>
+<p>Rappel du fonctionnement de l’API Swing:</p>
+<ul>
+<li>La classe <code>Observable</code> “est remplacée par” la classe
+<code>javax.swing.JButton</code></li>
+<li>La méthode <code>addObserver(Observer o)</code> “correspond à”
+<code>addActionListener(ActionListener l)</code></li>
+<li>La méthode <code>notifyObservers(Object arg)</code> “est remplacée
+par” <code>actionPerformed(ActionEvent ae)</code></li>
+<li>L’interface <code>Observer</code> “est remplacée par” l’interface
+<code>java.awt.event.ActionListener</code></li>
+</ul>
+<h3 id="comportement-attendu">Comportement attendu</h3>
+<p>À chaque clic, un ou plusieurs observateurs sont réveillés :</p>
+<ul>
+<li>Le bouton A a 3 observateurs (jbo1, jbo2 et jbo3)
+<center>
+<img src="images/tp4.ht1.jpg" />
+</center></li>
+<li>Le bouton B a 2 observateurs (jbo1 et jbo2)
+<center>
+<img src="images/tp4.ht2.jpg" />
+</center></li>
+<li>Le bouton C a 1 observateur (jbo1)
+<center>
+<img src="images/tp4.ht14.jpg" />
+</center></li>
+</ul>
+<p><mark><strong>Complétez les classes IHMQuestion2_1 et JButtonObserver
+afin d’obtenir les mêmes copies écran</strong></mark></p>
+<p><strong>Une idée du comportement attendu, depuis votre répertoire du
+tp exécutez cette commande</strong>
+<code>java -jar ihm_q2_1.jar</code></p>
+Ci-dessous un gif animé écrit par M. HAMZA Sadouk (NFP121-2019)
+<center>
+<img src="images/gif2-1.gif" />
+</center>
+<h2 id="la-classe-jmouseobserver"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_2.png" />
+La classe <code>JMouseObserver</code></h2>
+<p>On peut également installer sur un élément graphique un observateur
+pour les évènements venant de la souris. Cette fois :</p>
+<ul>
+<li>La méthode <code>addObserver</code> est remplacée par
+<code>java.awt.event.addMouseListener</code>.</li>
+<li>La méthode <code>notifyObservers()</code> est remplacée par
+<code>mouseClicked(MouseEvent ae)</code>,
+<code>mouseEntered(MouseEvent ae)</code>,…</li>
+<li>L’interface
+Observer<code>est remplacée par l'interface</code>java.awt.event.MouseListener`.</li>
+</ul>
+<p>A chaque déplacement de la souris vers l’un des boutons, un
+observateur est réveillé:</p>
+<ul>
+<li>Le bouton A a 4 observateurs (<code>jmo1</code>, <code>jbo1</code>,
+<code>jbo2</code> et <code>jbo3</code>), ici la souris est entrée sur le
+bouton A
+<center>
+<img src="images/tp4.ht15.jpg" />
+</center></li>
+<li>la souris est entrée et un clic a eu lieu sur le bouton A (cf.
+question2_1)
+<center>
+<img src="images/tp4.ht16.jpg" />
+</center></li>
+<li>Déplacement vers le bouton B avec un clic
+<center>
+<img src="images/tp4.ht17.jpg" />
+</center></li>
+<li>déplacement vers le bouton C avec un clic
+<center>
+<img src="images/tp4.ht18.jpg" />
+</center></li>
+</ul>
+<hr>
+<p><mark><strong>Complétez les classes <code>IHMQuestion2_2</code> et
+<code>JMouseObserver</code> afin d’obtenir les mêmes
+comportements.</strong></mark> Consultez la documentation de l’API
+<code>java.awt.event.addMouseListener</code>.</p>
+<p>Une idée du comportement attendu : Une idée du comportement attendu :
+<code>java -jar ihm_q2_2.jar</code></p>
+<p>Ci-dessous un gif animé écrit par M. HAMZA Sadouk (NFP121-2019):</p>
+<center>
+<img src="images/gif2-2.gif" />
+</center>
+<hr>
+<h2 id="le-modèle-mvc"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question3_1.png" />
+Le modèle MVC</h2>
+<p>Une représentation usuelle du pattern MVC est données ci-dessous.</p>
+<center>
+<img src="images/mvc.png" />
+</center>
+<center>
+caption:“source : Java BluePrints Model-View-Controller”
+</center>
+<!-- l'url ne marche plus: http://www.oracle.com/technetwork/java/mvc-detailed-136062.html -->
+<p>Selon le “pattern MVC” (Modèle-Vue-Contrôleur)</p>
+<ul>
+<li>Le Modèle contient la logique et l’état de l’application, il
+prévient ses observateurs lors d’un changement d’état.</li>
+<li>La Vue représente l’interface utilisateur.</li>
+<li>Le Contrôleur assure la synchronisation entre la vue et le
+modèle.</li>
+</ul>
+<p>Notez la diférence suivante avec le cours:</p>
+<ul>
+<li>le contrôleur envoie parfois une notification (“View Selection”) à
+la vue. Ceci pour signaler à la vue que les interactions de
+l’utilisateur exigent un changement de vue. Par exemple: ouvrir une
+deuxième fenêtre.</li>
+</ul>
+<p><mark><strong>Complétez l’application de type calculette à pile,
+selon le paradigme MVC</strong></mark>, dans le package
+<code>question3</code>. Précisions ci-dessous.</p>
+<p>L’évaluation d’une expression arithmétique peut être réalisée par
+l’usage d’une pile d’entiers.</p>
+<p>Par exemple l’expression 3 + 2 engendre la séquence:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="fu">depiler</span><span class="op">()</span> <span class="op">+</span> <span class="fu">depiler</span><span class="op">());</span></span></code></pre></div>
+<p>de même que l’expression 3 + 2 * 5 correspond à la séquence:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="fu">depiler</span><span class="op">()</span> <span class="op">*</span> <span class="fu">depiler</span><span class="op">());</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">empiler</span><span class="op">(</span><span class="fu">depiler</span><span class="op">()</span> <span class="op">+</span> <span class="fu">depiler</span><span class="op">());</span></span></code></pre></div>
+<p>L’architecture logicielle induite par l’usage du paradigme MVC nous
+donne la structure initiale du projet:</p>
+<ul>
+<li><p>Le Modèle est une pile (classe <code>PileModele&lt;T&gt;</code>,
+avec délégation à une implantation (<code>tp3.Pile2</code>) de
+<code>tp3.PileI</code> du TP3).<br> <em>Le Modèle lors d’un changement
+d’état prévient ses observateurs</em>.</p></li>
+<li><p>La vue <code>VueIHMCalculette</code> correspond à l’affichage de
+l’état de la pile (classe <code>VuePile</code>) et des différents
+boutons.<br> <em>La vue s’inscrit auprès du Modèle lors de l’appel du
+constructeur d’une Vue, à chaque notification, la vue s’enquiert de
+l’état du modèle et l’affiche</em>.</p></li>
+<li><p>Le Contrôleur (classe <code>Controleur</code>) gère les
+évènements issus des boutons: push,+, -, *, /,clear ([]) .<br>
+<strong>La gestion des boutons utilise elle-même une architecture
+observateur/observé comme expliqué ci-dessus</strong> (Introduction aux
+évènements de l’AWT).</p></li>
+<li><p>L’IHM crée, assemble le modèle, la vue et le contrôle (classe
+<code>IHMCalculette</code>).</p>
+<!-- Refaire un schéma?
+Vue : VueIHMCalculette
+Controleur : ControleurCalculette ?
+
+--></li>
+</ul>
+<!-- <center>![](images/tp4.ht19.jpg)</center> -->
+<p><mark>Une des implémentations des piles issue du tp3 est installée
+dans le package <code>question3.tp3</code>, complétez l’implémentation
+des classes <code>PileModele</code>, <code>Contrôleur</code> et
+<code>VueIHMCalculette</code>. Ainsi que la classe de test
+<code>PileModeleTest</code></mark></p>
+<p>Selon “MVC” la classe <code>PileModele&lt;T&gt;</code> hérite de la
+classe <code>Observable</code> et implémente <code>PileI</code>, à
+chaque changement d’état, modification de la pile, les observateurs
+inscrits seront notifiés.</p>
+<p>La pile du tp3, sans modification, est utilisée, seules certaines
+méthodes seront redéfinies, enrichies, décorées…</p>
+<p>La classe <code>Controleur</code> implémente les actions, évènements
+engendrés par l’utilisateur, à chaque opération souhaitée le contrôleur
+altère les données du modèle de la pile, celle-ci à chaque occurrence
+d’un changement d’état prévient ses observateurs, la vue en est un.</p>
+<p>Une idée du comportement attendu :
+<code>java -jar ihm_q3.jar</code>.</p>
+Ci-dessous un gif animé écrit par M. HAMZA Sadouk (NFP121-2019). Notez
+qu’il y a un “slider” en plus en haut, qui n’est pas demandé.
+<center>
+<img src="images/gif3-3.gif" />
+</center>
+<p>Notez qu’un mauvais format de nombre ou une division par zéro n’ont
+aucune incidence.</p>
+<hr>
+<h2 id="utilisation-dobjets-évènements"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question4.png" />
+Utilisation d’objets-évènements</h2>
+<p>Dans la question 3 on a procédé comme dans le cours: lorsqu’un
+évènement est déclenché par un élément graphique (bouton…), le
+<code>ActionListener</code> associé appelle la méthode correspondante du
+contrôleur.</p>
+<p>On peut trouver que cela maintien un certain couplage non souhaitable
+entre la vue et le contrôleur: la vue doit connaître chacune des
+méthodes implantées par le contrôleur.</p>
+<p>Pour remédier à cela il peut être intéressant de procéder de façon un
+peu différente: Tous les <code>actionListener</code> appelle <strong>la
+même méthode</strong> (appelons-la <code>reactTo</code>) du contrôleur,
+avec <em>en argument un objet qui décrit l’évènement</em>. De cette
+façon le découplage est plus strict: les énènements passés en paramètre
+forme un “protocole” de communication entre la vue et le contrôleur.</p>
+<p>On pourrait utiliser un entier pour décrire l’évènement, mais il est
+préférable d’utiliser un type spécifique. La méthode aura donc le
+profile: <code>reactTo(PileEvent e)</code>, où <code>PileEvent</code>
+est une interface. Pour chaque évènement possible dans la vue (clic “+”,
+clic “-”,..) nous aurons une implémentation de cette interface
+(<code>AddEvent</code>, <code>SubEvent</code>,…). Par exemple lorsque le
+bouton “+” sera activé, l’instruction
+<code>controleur.reactTo(new AddEvent())</code>.</p>
+<p>La méthode <code>reactTo(PileEvent e)</code> du contrôleur devra
+inspecter l’évènement <code>e</code> reçu et effectuer l’opération
+adéquate. Soit par introspection, soit par un autre moyen (une variable
+avec un numéro identifiant l’évènement, une chaîne de caractère,…).</p>
+<p><mark> Complétez l’implémentation de cette nouvelle version dans le
+package <code>question4</code>.</mark> Notez que les méthodes de test
+vérifient que <code>reactTo</code> est bien la seule méthode publique du
+contrôleur.</p>
+<p>Remarque: nous n’avons pas encore vu les design patterns
+<em>Composite</em> et <em>Visiteur</em> mais l’inspection du
+<code>PileEvent</code> pourrait être remplacée par un visiteur sur le
+composite <code>PileEvent</code>. Nous en reparlerons dans le TP
+adéquat.</p>
+<!--
+LocalWords:  Junit Git TP clonez gradle git l'énoncé Fahrenheit MVC
+LocalWords:  Celsius FahrenheitCelsius tp JDK Windows hr i.e slider
+LocalWords:  runtime télécharger l'IHM error IHM center ihm.jar clear
+LocalWords:  celsius implémentation d'objets-évènements br
+LocalWords:  l'implémentation implémentations
+ -->
+</body>
+</html>
