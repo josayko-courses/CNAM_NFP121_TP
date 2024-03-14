@@ -1,0 +1,45 @@
+// Configuration pour le plugin java
+// Ceci es tutilisé par le build.gradle por les cible "run" et 
+ext {
+     mainJavaClass = "question3.IHMFahrenheit"
+}
+//ceci peut être utilisé plus bas
+project.ext.tpnum = "tp2"
+
+// On peut overrider une tâche comme ceci:
+//task foo(type: Jar, overwrite: true) { }
+
+dependencies {
+    testImplementation(files("testlib/ZTestOfficial.jar"))
+}
+/* SOLUTION (rien) */
+// Ne pas modifier la ligne ci-dessus
+
+// This works to build ihm.jar only if question1 and question3 are solved.
+task jarForIHM(type: Jar, dependsOn: [compileJava]) {
+  manifest {
+        attributes ('Implementation-Title': 'Reference implementation for IHM Farenheit',
+                    'Main-Class': 'question3.IHMFahrenheit' )
+    }
+  group = 'distribution'
+  description = 'Create the ihm.jar for demo/testing.'
+  archiveFileName = "ihm.jar"
+  destinationDirectory = file(".")
+  from file("${buildDir}/classes/java/main")
+  include 'question3/*.class'
+  include 'question1/*.class'
+  exclude 'Z_*.class'
+  exclude '**/Z_*.class'
+  from file("src/main/java")
+  include '**/*.java'
+}
+
+
+task allJars {
+ group = 'distribution'
+ description = 'Create all the the ihm_qxx.jar for demo/testing.'
+ dependsOn "jarEnClair"
+ dependsOn "jarForIHM"
+}
+
+/* FIN SOLUTION */
