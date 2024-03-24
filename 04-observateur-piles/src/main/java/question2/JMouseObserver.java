@@ -7,10 +7,10 @@ import java.awt.event.MouseListener;
 /**
  * Décrivez votre classe JButtonObserver ici.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Jonny SAYKOSY
+ * @version 2024.03.24
  */
-public class JMouseObserver  { // à compléter
+public class JMouseObserver implements MouseListener {
   private String nom;
   private TextArea contenu;
 
@@ -27,9 +27,15 @@ public class JMouseObserver  { // à compléter
    * souris entrée en (X,Y) exemple : observateur jmo1 : souris entrée en (15,20)
    */
   public void mouseEntered(MouseEvent e) {
-    // à compléter.
-    String message = "";
-    contenu.append(message + "\n"); 
+    StringBuilder message = new StringBuilder(); 
+    message
+      .append(this.nom)
+      .append(" : souris entrée en (")
+      .append(e.getX())
+      .append(",")
+      .append(e.getY())
+      .append(")");
+    contenu.append(message.toString() + "\n"); 
   }
 
   public void mouseExited(MouseEvent e) {}
