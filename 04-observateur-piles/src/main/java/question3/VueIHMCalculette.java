@@ -27,6 +27,7 @@ public class VueIHMCalculette extends JFrame implements Observer {
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     // À FAIRE: s'enregistrer comme observateur
+    this.modele.addObserver(this);
 
     // Ceci est la partie affichage de la pile, elle se branche elle-même sur le modèle
     // passé en paramètre.
@@ -36,6 +37,11 @@ public class VueIHMCalculette extends JFrame implements Observer {
     donnee.addActionListener((ActionEvent ae) -> contr.reactToPush(donnee.getText()));
     push.addActionListener((ActionEvent ae) -> contr.reactToPush(donnee.getText()));
     // à compléter 
+    add.addActionListener((ActionEvent ae) -> contr.reactToAdd());
+    sub.addActionListener((ActionEvent ae) -> contr.reactToSub());
+    mul.addActionListener((ActionEvent ae) -> contr.reactToMul());
+    div.addActionListener((ActionEvent ae) -> contr.reactToDiv());
+    clear.addActionListener((ActionEvent ae) -> contr.reactToClear());
   }
 
   private void setUpGraphics() {

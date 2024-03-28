@@ -15,11 +15,17 @@ public class PileModele<T> extends Observable implements PileI<T> {
 
   public void empiler(T o) throws PilePleineException {
     // à compléter, cf question 3 
+    this.pile.empiler(o);
+    this.setChanged();
+    this.notifyObservers(this.pile);;
   }
 
   public T depiler() throws PileVideException {
     // à compléter. CF question3
-    throw new PileVideException();
+    T o = this.pile.depiler();
+    this.setChanged();
+    this.notifyObservers(this.pile);
+    return o;
   }
 
   public T sommet() throws PileVideException {

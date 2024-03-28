@@ -26,4 +26,51 @@ public class Controleur {
   }
 
   // à compléter: reactToAdd, etc 
+  void reactToAdd() {
+    try {
+      modele.empiler(modele.depiler() + modele.depiler());
+    } catch (PileVideException e) {
+    } catch (PilePleineException e) {
+    }
+  }
+
+  void reactToSub() {
+    try {
+      if (modele.taille() > 1) {
+        Integer b = modele.depiler(); 
+        Integer a = modele.depiler();
+        modele.empiler(a - b);
+      }
+    } catch (PileVideException e) {
+    } catch (PilePleineException e) {
+    }
+  }
+
+  void reactToMul() {
+    try {
+      modele.empiler(modele.depiler() * modele.depiler());
+    } catch (PileVideException e) {
+    } catch (PilePleineException e) {
+    }
+  }
+
+  void reactToDiv() {
+    try {
+      if (modele.sommet() != 0) {
+        Integer b = modele.depiler(); 
+        Integer a = modele.depiler();
+        modele.empiler(a / b);
+      }
+    } catch (PileVideException e) {
+    } catch (PilePleineException e) {
+    }
+  }
+
+  void reactToClear() {
+    try {
+      while (!modele.estVide())
+        modele.depiler();
+    } catch (PileVideException e) {
+    }
+  }
 }
