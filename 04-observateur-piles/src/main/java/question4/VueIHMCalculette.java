@@ -26,6 +26,7 @@ public class VueIHMCalculette extends JFrame implements Observer {
     this.contr = c;
     this.modele = m;
     // À FAIRE: s'enregistrer comme observateur. 
+    this.modele.addObserver(this);
 
     // Ceci est la partie affichage de la pile, elle se branche
     // elle-même sur le modèle passé en paramètre.
@@ -33,6 +34,31 @@ public class VueIHMCalculette extends JFrame implements Observer {
     setUpGraphics(); // mise en page
 
     // à compléter: Gestion des évènements
+    this.donnee.addActionListener((ActionEvent ae) -> contr.reactTo(new PushEvent(){
+      String data;
+      public String getData() {
+        return this.data;
+      }
+      public PushEvent setData(String data) {
+        this.data = data;
+        return this;
+      }
+    }.setData(this.donnee.getText())));
+    this.push.addActionListener((ActionEvent ae) -> contr.reactTo(new PushEvent(){
+      String data;
+      public String getData() {
+        return this.data;
+      }
+      public PushEvent setData(String data) {
+        this.data = data;
+        return this;
+      }
+    }.setData(this.donnee.getText())));
+    this.add.addActionListener((ActionEvent ae) -> contr.reactTo(new AddEvent(){}));
+    this.sub.addActionListener((ActionEvent ae) -> contr.reactTo(new SubEvent(){}));
+    this.mul.addActionListener((ActionEvent ae) -> contr.reactTo(new MulEvent(){}));
+    this.div.addActionListener((ActionEvent ae) -> contr.reactTo(new DivEvent(){}));
+    this.clear.addActionListener((ActionEvent ae) -> contr.reactTo(new ClearEvent(){}));
   }
 
   private void setUpGraphics() {

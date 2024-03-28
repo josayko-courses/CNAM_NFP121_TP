@@ -5,3 +5,13 @@ package question4;
 // contrôleur. Il faut donc implanter un ou plusieurs type
 // d'évènement.
 public interface PileEvent {}
+
+interface PushEvent extends PileEvent {
+    public String getData();
+    public PushEvent setData(String data);
+}
+interface AddEvent extends PileEvent {}
+interface SubEvent extends PileEvent {}
+interface MulEvent extends PileEvent {}
+interface DivEvent extends PileEvent {}
+interface ClearEvent extends PileEvent {}
