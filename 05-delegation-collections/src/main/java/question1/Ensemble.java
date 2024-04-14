@@ -16,7 +16,7 @@ public class Ensemble<T> extends AbstractSet<T> {
 
   public boolean add(T t) {
     // À compléter. Cf question 1.1 
-    return false;
+    return !table.contains(t) ? table.add(t) : false;
   }
 
   public Ensemble<T> union(Ensemble<? extends T> e) {
