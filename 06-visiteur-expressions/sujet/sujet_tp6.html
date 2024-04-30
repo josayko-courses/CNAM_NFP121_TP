@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NFP121 programmation avancée – TP6 – WhileL et les Visiteurs</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cedric.cnam.fr/~courtiep/nfp121/github_style.css" />
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">NFP121 programmation avancée – TP6 – WhileL et les
+Visiteurs</h1>
+</header>
+<h2 id="thèmes-du-tp"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/introduction.png" />
+Thèmes du TP</h2>
+<ul>
+<li>le pattern <a
+href="https://www.google.com/search?q=composite+pattern+java">Composite</a></li>
+<li>le pattern <a
+href="https://www.google.com/search?q=pattern+visitor+java">Visiteur</a></li>
+<li>le langage <a
+href="http://jfod.cnam.fr/progAvancee/Hennessy.pdf">WhileL de
+Hennessy</a> (page 47, chapitre 4.3 an Imperative language)</li>
+</ul>
+<h2 id="le-pattern-composite-rappel-et-compléments"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/preliminaire.png" />
+Le pattern composite, rappel et compléments</h2>
+<p>Aucun programme n’est demandé dans ce préliminaire, mais une lecture
+attentive facilitera l’exécution du reste du TP.</p>
+<p>But du pattern Composite: regrouper dans une hiérarchie des objets
+(simples, complexes y compris récursifs).</p>
+<center>
+<img src="images/bluej1.png" />
+</center>
+<p>Complément au cours: on décrit souvent une telle structure de données
+par une <em>grammaire</em> :</p>
+<table>
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Informellement</th>
+<th>Formalisé en :</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Une Composante est un Composite ou une Feuille</td>
+<td><code>Composante ::= Composite OU Feuille</code></td>
+</tr>
+<tr class="even">
+<td>Composite est composé de 0 ou plusieurs CompositeConcret</td>
+<td><code>Composite ::= {CompositeConcret}</code></td>
+</tr>
+<tr class="odd">
+<td>Feuille est une ‘symbole terminal’: un primitif non récursif</td>
+<td><code>Feuille ::= 'symbole terminal'</code></td>
+</tr>
+</tbody>
+</table>
+<p>de plus un <code>Composite</code> peut être <em>récursif</em>
+i.e. défini en terme de <code>Composante</code>.</p>
+<p>On applique ce pattern pour représenter la structure d’une Expression
+Arithmétique sur les nombres entiers :</p>
+<center>
+<img src="images/bluej2.png" />
+</center>
+<p>Avec la grammaire :</p>
+<pre><code>Expression ::= Binaire | Nombre | Variable
+Binaire ::= Addition | Multiplication | Soustraction | Division
+Addition ::= Expression ‘+’ Expression
+Multiplication ::= Expression ‘*’ Expression
+...
+Nombre ::= &#39;une valeur de type int&#39; </code></pre>
+<p>En ajoutant la Multiplication, la Division, la soustraction et les
+opérations unaires Plus, Moins et Factorielle et la possibilité de
+désigner un nombre par une Variable, on obtient la structure de Données
+:</p>
+<p>Composite des Expressions Arithmétiques entières:</p>
+<center>
+<img src="images/bluej3.png" />
+</center>
+<p>Par exemple l’expression “(3+x)*8” sera représentée par l’objet
+suivant:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Expression</span> mult <span class="op">=</span> <span class="kw">new</span> <span class="fu">Multiplication</span><span class="op">(</span><span class="kw">new</span> <span class="fu">Addition</span><span class="op">(</span><span class="kw">new</span> <span class="fu">Constante</span><span class="op">(</span><span class="dv">3</span><span class="op">),</span><span class="kw">new</span> <span class="fu">Variable</span><span class="op">(</span><span class="st">&quot;x&quot;</span><span class="op">)),</span> <span class="kw">new</span> <span class="fu">Constante</span><span class="op">(</span><span class="dv">8</span><span class="op">));</span></span></code></pre></div>
+<p>qui se représente graphiquement comme ci-dessous. Les classes
+interface et classe abstraites sont marquées avec un C,I et A, les
+autres rectangles sont des objet (des <em>instances</em> de classes). La
+flèche en pointillé entre une instance et une classe signifie “est une
+instance de”.</p>
+<center>
+<p><img
+src="plantuml-images/0b7fe64d457df2222a3548753e4bbe5ff511488e.svg" /></p>
+</center>
+<!-- hide class circle  -->
+<!-- abstract        Expression -->
+<!-- abstract        Binaire -->
+<!-- abstract        Unaire -->
+<!-- Expression <|.. Constante3 -->
+<!-- Expression <|.. Constante8 -->
+<!-- Expression <|.. VariableX -->
+<!-- Expression <|.. Binaire -->
+<!-- Expression <|.. Unaire -->
+<!-- Expression <|.. VariableX -->
+<hr>
+<h2 id="le-pattern-interpreterinterpréteur"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/preliminaire.png" />
+Le pattern interpreter/interpréteur</h2>
+<p>(toujours rien à programmer dans cette partie)</p>
+<p>On reprend le pattern ‘composite’ avec l’idée d’effectuer un
+traitement uniforme sur chacune des feuilles de la structure. Un
+traitement typique est une interprétation (dans un monde connu) de la
+structure de données: par exemple ici une <em>évaluation</em> d’une
+expression: c’est-à-dire le calcul de sa valeur: l’expression ci-dessus
+représentant “(3+x)*8” a pour valeur 24 <strong>si on suppose que x a
+pour valeur 2</strong>.</p>
+<p>Comme on le voit, contrairement à l’exemple du cours les expressions
+peuvent être des <strong>variables</strong>. Pour pouvoir évaluer une
+expression contenant des variables il faut non seulement une expression
+mais également un <strong>contexte</strong>: une
+<strong>mémoire</strong> dans laquelle sont stockées les valeurs
+associées aux variables.</p>
+<p>On manipule ce contexte via les méthodes:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="bu">Integer</span> <span class="fu">lire</span><span class="op">(</span><span class="bu">String</span> adresse<span class="op">);</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ecrire</span><span class="op">(</span><span class="bu">String</span> adresse<span class="op">,</span> <span class="bu">Integer</span> valeur<span class="op">);</span></span></code></pre></div>
+<p>Notez que l’adresse peut être simplement le nom de la variable.</p>
+<p><code>Contexte</code> est une interface et <code>Mémoire</code> une
+implémentation:</p>
+<center>
+<img src="images/bluej4.png" />
+</center>
+<p>Donc l’entête de la méthode d’interprétation “calcul de la valeur
+d’une expression” dans la classe abstraite Expression est la
+suivante:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">int</span> <span class="fu">interprete</span><span class="op">(</span>Contexte c<span class="op">);</span></span></code></pre></div>
+<p>Ceci impose l’implémentation de cette méthode par chaque feuille de
+la structure de données.</p>
+<p>Les choix d’implantation de la classe Mémoire sont fixés, cf. le code
+java correspondant.</p>
+<p>Enfin, une classe de tests unitaires montrent quelques utilisations
+de l’interpréteur.</p>
+<p><strong>Remarques</strong>:</p>
+<ul>
+<li><p>l’évaluation n’est pas la seule interprétation possible des
+expressions.</p></li>
+<li><p>l’affichage des expressions (infixé, postfixé, préfixé) peut être
+vu comme une interprétation.</p></li>
+<li><p>La simplification, c’est-à-dire le remplacement des sous
+expressions purement numériques par leurs valeurs, en est une aussi en
+ne nécessitera pas de contexte.</p></li>
+<li><p>etc…</p></li>
+<li><p>Donc, pour implémenter chaque nouvelle interprétation il faut
+“ouvrir” pratiquement toutes les classes de la structure de données avec
+tous les inconvénient que cela comporte: introduction de bugs, non
+disponibilité du code source, etc.</p></li>
+<li><p>Dans la question1 nous allons donc utiliser le pattern visiteur
+pour permettre l’ajout de traitements sans avoir à modifier les classes
+existantes.</p></li>
+<li><p>Vous remarquerez un noeud particulier <code>FonctionJava</code>
+contenant un nom et un tableau de sous-expressions. Ce noeud représente
+un appel à une fonction sur des arguments, comme dans
+<code>1+2*f(x+1,y,z)</code> (notation infixe) ou bien
+<code>(1,(2;((x,1)+,y,z)f)*)+</code> (notation postfixe). Ceci est
+hors-programme, surtout concernant le <code>VisiteurEvaluation</code>,
+mais peut constituer un intéressant sujet pour ceux qui sont déjà à
+l’aise avec le reste. Comment évaluer l’appel à une fonction? Il
+faudrait accéder à sa définition… Est-ce-qu’on peut mettre cette
+définition dans la <code>Memoire</code>?</p>
+<p>En tout état de cause il n’y a pas de test de notation utilisant ce
+noeud et vous n’avez donc pas à considérer ce noeud dans les visiteurs,
+sauf par curiosité.</p></li>
+</ul>
+<hr>
+<h2 id="le-pattern-visitorvisiteur"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question1.png" />
+Le pattern visitor/visiteur</h2>
+<p>(c’est ici que vous allez devoir commencer à coder)</p>
+<p>Idée: Pour éviter l’ouverture et la modification de toutes les
+classes de la structure pour l’implantation d’une nouvelle méthode de
+traitement, on décide d’implanter toutes les méthodes de manipulation de
+la structure dans des classes externes dites “visiteur”. Du coup dans
+chaque classe de la structure on ne trouve plus qu’une seule méthode qui
+accepte un visiteur.</p>
+<p>Ainsi la classe Expression devrait s’écrire :</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">package</span><span class="im"> question1</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> <span class="bu">Expression</span> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>   <span class="kw">public</span> <span class="dt">int</span> <span class="fu">accepter</span><span class="op">(</span>Visiteur v<span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">// En utilisant la généricité de java</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">// public &lt;T&gt; T accepter(VisiteurExpression&lt;T&gt; v){ return v.visite(this);</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Pattern visitor:</p>
+<center>
+<img src="images/structure.png" />
+</center>
+<p>Dans le paquetage <code>question1</code> on a repris les expressions
+du paquetage <code>preliminaire</code>.</p>
+<p>Remarque: toutes les classes (non-abstraites) contiennent la même
+méthode:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="op">&lt;</span>T<span class="op">&gt;</span> T <span class="fu">accepter</span><span class="op">(</span>VisiteurExpression<span class="op">&lt;</span>T<span class="op">&gt;</span> v<span class="op">){</span> <span class="cf">return</span> v<span class="op">.</span><span class="fu">visite</span><span class="op">(</span><span class="kw">this</span><span class="op">);</span> <span class="op">}</span></span></code></pre></div>
+<p>Parenthèse: Cette fonction est redéfinie à l’identique dans chaque
+classe concrète. on pourrait être tenté de “factoriser” cette méthode en
+la mettant dans une classe abstraite. Par exemple dans
+<code>Binaire</code> ou même dans <code>Expressions</code>. Mais cela ne
+marche pas. <mark>Sauriez vous dire pourquoi?</mark> C’est en lien avec
+la résolution des appels de méthodes expliquée dans la vidéo “Héritage,
+surcharge et la méthode <code>equals</code>” de la section “Rappels
+Java” du cours. Indice: la méthode est répétée à l’identique sauf que le
+type de <code>this</code> dans <code>v.visite(this)</code> n’est pas le
+même.</p>
+<!-- La raison pour cela tient à la méthode de résolution des appels de -->
+<!-- méthode (CF vidéos sur "Héritage, surcharge et la méthode `equals`" de -->
+<!-- la section "Rappels Java" du cours): imaginons que nous déclarions -->
+<!-- cette méthode dans la classe abstraite `Binaire` dans le but de ne pas -->
+<!-- avoir à la redéfinir dans `Multiplication`, `Addition` etc: -->
+<!-- ``` java -->
+<!-- public abstract class Binaire extends Expression { -->
+<!--   // ... -->
+<!-- // Ceci ne sert marche pas: -->
+<!--   public <T> T accepter(VisiteurExpression<T> v){ -->
+<!--     return v.visite(this); -->
+<!--   } -->
+<!-- } -->
+<!-- ``` -->
+<!-- L'appel de méthode `v.visite(this)` devra être résolu à l'exécutuion -->
+<!-- par la JVM, mais comme expliqué dans la vidéo citée plus haut, le -->
+<!-- compilateur va calculer statiquement une signature "cible". C'est -->
+<!-- cette signature qui sera recherchée à l'exécution. Or cette signature -->
+<!-- sera la suivante: `VisiteurExpression.visite(Binaire)`. Du coup la -->
+<!-- méthode réellement appelée ne pourra pas être par exemple -->
+<!-- `VisiteurExpression.visite(Multiplication)` car cette méthode n'est -->
+<!-- pas compatible avec la signature recherchée. -->
+<p>Bref le type composite est prêt, il s’agit maintenant d’implanter par
+le pattern visiteur les différentes interprétations proposées:
+évaluation (<code>VisiteurEvaluation</code>), affichage infixe
+(<code>VisiteurInfixe</code>), affichage Postfixe
+(<code>VisiteurPostfixe</code>).</p>
+<p><strong>En vous inspirant de la classe <code>VisiteurInfixe</code>
+qui est complète, <mark>complétez les classes</mark>
+<code>VisiteurEvaluation</code> et <code>VisiteurPostfixe</code> et
+<mark>proposez les tests</mark> des classes de tests appropriés (cf :
+classe <code>TestACompleter</code>)</strong>.</p>
+<p>Notez qu’un visiteur par défaut <code>VisiteurParDefaut</code> est
+défini qui retourne <code>null</code> pour tous les noeuds. Ce visiteur
+permet, en faisant <code>extends VisiteurParDefaut</code> au lieu de
+<code>externds VisiteurExpression</code>, de compiler (et donc de
+tester) votre visiteur avant d’avoir implanté toutes les méthodes.</p>
+<p>Le programme suivant:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Contexte m <span class="op">=</span> <span class="kw">...</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>VisiteurExpression<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> vp <span class="op">=</span> <span class="kw">new</span> <span class="fu">VisiteurPostfixe</span><span class="op">(</span>m<span class="op">);</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Expression</span> expr <span class="op">=</span> <span class="kw">new</span> <span class="fu">Factoriel</span><span class="op">(</span><span class="fu">Addition</span><span class="op">(</span><span class="kw">new</span> <span class="fu">Constante</span><span class="op">(</span><span class="dv">3</span><span class="op">),</span> <span class="kw">new</span> <span class="fu">Constante</span><span class="op">(</span><span class="dv">2</span><span class="op">)));</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span>expr<span class="op">.</span><span class="fu">accepter</span><span class="op">(</span>vp<span class="op">))</span>)<span class="op">;</span></span></code></pre></div>
+<p>affichera la chaîne:<code>"((3,2)+)!"</code>. La même expression
+parcourue par le visiteur <code>VisiteurEvaluation</code> retournera
+l’entier 720. Regardez les tests pour voir ce qui est attendu.</p>
+<hr>
+<h2 id="les-expressions-booléennes"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2.png" />
+Les Expressions Booléennes</h2>
+<p><mark>Reproduire</mark> pour les Expressions Booléennes ce qui a été
+obtenu à la question 1 pour les Expressions Arithmétiques.</p>
+<p>Diagramme de Classes à respecter :</p>
+<center>
+<img src="images/bluej5.png" />
+</center>
+<p>Remarques :</p>
+<ul>
+<li>Cette structure de données est complète vous n’avez rien à y
+ajouter.</li>
+<li>Nous ne traitons pas le cas des variables booléennes.</li>
+<li>2 constantes seulement Vrai et Faux.</li>
+<li>Un seul opérateur unaire : Non.</li>
+<li>Deux sortes d’opérateurs binaires :
+<ul>
+<li>Les opérations booléennes</li>
+<li>Les “Relations” sont des opérateurs entre Expressions Arithmétiques
+à résultat booléen. Par exemple <code>x+1 &lt; 2*y</code>. <strong>Notez
+donc que les <code>question2.ExpressionBooleenne</code> contiennent des
+<code>question1.Expression</code></strong>.</li>
+</ul></li>
+</ul>
+<p><mark>Les visiteurs à implanter</mark> sont les suivants (voir
+également les questions ci-dessous):</p>
+<center>
+<img src="images/bluej6.png" />
+</center>
+<p>Remarques :</p>
+<ul>
+<li>Pas de visiteur par défaut.</li>
+<li>VisiteurBoolString correspond au visiteur infixe des Expressions
+Arithmétiques</li>
+<li>Nouveau visiteur : VisiteurBoolTojava. Il s’agit d’obtenir une
+expression booléenne syntaxiquement correcte pour java</li>
+</ul>
+<p>AIDE :</p>
+<ul>
+<li>Rappel : Dans une classe générique, le type T doit forcément être
+une classe (<code>Integer</code>, <code>Boolean</code>), pas un type de
+base (<code>int</code>, <code>boolean</code>).</li>
+<li>L’évaluation d’une expression se fait dans un certain “contexte”
+(ici, une mémoire) permettant de stocker la valeur des variables.</li>
+<li>Pour savoir ce qu’il faut faire en cas de division par zéro,
+regardez attentivement <code>TestAVerifier</code>.</li>
+</ul>
+<hr>
+<h2 id="le-visiteur-visiteurbooltojava"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_1.png" />
+Le visiteur <code>VisiteurBoolTojava</code></h2>
+<p><strong>Code à écrire</strong>: <mark>Complétez le visiteur</mark>
+<code>VisiteurBoolTojava</code>; “vérifiez” avec le compilateur javac
+(et grâce à la classe de tests fournie) que le code java est
+syntaxiquement correct.</p>
+<hr>
+<h2 id="le-visiteur-visiteurboolevaluation"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question2_2.png" />
+Le visiteur <code>VisiteurBoolEvaluation</code></h2>
+<p><mark><strong>Code à écrire</strong></mark>: Complétez le visiteur
+<strong>VisiteurBoolEvaluation</strong> et <mark>proposez une classe de
+tests</mark> de ce visiteur.</p>
+<h1 id="partie-optionnelle">Partie optionnelle</h1>
+<p>Au delà de cette ligne vous êtes dans la partie optionnelle du TP. Il
+s’agit de définir un composite qui représente les programmes d’un petit
+langage de programmation: WhileL. Les visiteurs permettront d’exécuter
+le programme, ou bien de générer du code java compilable.</p>
+<p>Il est important de comprendre ici que les instructions du langage
+WhileL contiennent des <strong>expressions entières</strong> et des
+<strong>expressions booléennes</strong>. Les noeuds du composite
+<code>Instruction</code> vont donc parfois contenir des
+<code>Expression</code> et des <code>ExpressionBooleenne</code>. Par
+exemple vous devrez pouvoir effectuer:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Variable a <span class="op">=</span> <span class="kw">new</span> <span class="fu">Variable</span><span class="op">(</span>m<span class="op">,</span> <span class="st">&quot;a&quot;</span><span class="op">,</span> <span class="dv">7</span><span class="op">);</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Variable b <span class="op">=</span> <span class="kw">new</span> <span class="fu">Variable</span><span class="op">(</span>m<span class="op">,</span> <span class="st">&quot;b&quot;</span><span class="op">,</span> <span class="dv">85</span><span class="op">);</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">// b + 1</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">Expression</span> add <span class="op">=</span> <span class="kw">new</span> <span class="fu">Addition</span><span class="op">(</span>b<span class="op">,</span><span class="fu">Constante</span><span class="op">(</span><span class="dv">1</span><span class="op">));</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">// a = b + 1</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Instruction aff <span class="op">=</span> <span class="kw">new</span> <span class="fu">Affectation</span><span class="op">(</span>a<span class="op">,</span> add<span class="op">);</span> <span class="co">// Une instr qui contient un expr</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">// 0 == b + 1</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ExpressionBooleenne test <span class="op">=</span> <span class="kw">new</span> <span class="fu">Egal</span><span class="op">(</span><span class="fu">Constante</span><span class="op">(</span><span class="dv">0</span><span class="op">),</span><span class="kw">new</span> <span class="fu">Soustraction</span><span class="op">(</span>b<span class="op">,</span><span class="fu">Constante</span><span class="op">(</span><span class="dv">1</span><span class="op">)));</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">// if (0 == b + 1) { a = b + 1; }</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>Instruction test <span class="op">=</span> <span class="kw">new</span> <span class="fu">Selection</span><span class="op">(</span>test<span class="op">,</span> aff<span class="op">);</span> <span class="co">// contient un expr et un exprbooleenne</span></span></code></pre></div>
+<p>Ceci entraîne qu’un visiteur sur <code>Instruction</code> a besoin
+d’un visiteur sur les deux types d’expressions <code>Expression</code>
+et <code>ExpressionBooleenne</code> pour savoir quoi faire sur ces
+noeuds. Le constructeur du visiteur devra donc prendre deux visiteurs en
+paramètres. La création typique d’un visiteur sur
+<code>Instruction</code> sera donc de la forme (Cf les tests):</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Contexte m <span class="op">=</span> <span class="kw">...</span><span class="op">;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>VisiteurExpression<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> ves <span class="op">=</span> <span class="kw">new</span> question1<span class="op">.</span><span class="fu">VisiteurInfixe</span><span class="op">(</span>m<span class="op">);</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>VisiteurExpressionBooleenne<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> vbs <span class="op">=</span> <span class="kw">new</span> question2<span class="op">.</span><span class="fu">VisiteurBoolToJava</span><span class="op">(</span>ves<span class="op">);</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>VisiteurInstruction<span class="op">&lt;</span><span class="bu">String</span><span class="op">&gt;</span> vs <span class="op">=</span> <span class="kw">new</span> question3<span class="op">.</span><span class="fu">VisiteurInstToJava</span><span class="op">(</span>ves<span class="op">,</span> vbs<span class="op">);</span></span></code></pre></div>
+<hr>
+<h2 id="whilel-un-très-petit-langage-impératif"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question3_1.png" />
+WhileL : un (très) petit langage impératif</h2>
+<p>Les instructions de WhileL sont représentées dans le composite :</p>
+<center>
+<img src="images/bluej7.png" />
+</center>
+<p>Remarques :</p>
+<ul>
+<li>L’affectation (<code>=</code> en java) est la seule instruction à
+modifier le contexte.</li>
+<li>La Séquence est le ‘<code>;</code>’ de java, c’est-à-dire que
+<code>Sequence   (i1,i2)</code> représente le programme
+<code>i1 ; i2</code>, c’est-à-dire “exécuter <code>i1</code> puis
+exécuter <code>i2</code>”.</li>
+<li>La Sélection est le classique <code>if-then-else</code>
+(<code>else</code> optionnel)</li>
+<li><code>Iteration &lt;&lt;abstract&gt;&gt;</code> car il y a plus d’un
+type de boucle</li>
+<li>Assertion: même idée que <code>assert</code> de java, servira
+notamment pour tester le code généré puis compilé (voir plus bas).</li>
+<li>Afficher: même idée que <code>System.out.println()</code> de
+java</li>
+</ul>
+<p>Les visiteurs d’évaluation et de ‘traduction’ en java sont
+demandés:</p>
+<center>
+<img src="images/bluej8.png" />
+</center>
+<p>Ci-dessous, une spécification de l’interprétation/exécution d’une
+instruction:</p>
+<table class="center">
+<tbody>
+<tr>
+<td>
+Spécification informelle : <br> Rappel : l’exécution d’une instruction
+modifie l’état d’une Mémoire M, <br> une variable (par exemple X) est
+une adresse  de la Mémoire M
+</td>
+<td>
+Spécification formelle : règle d’inférence
+ cf. <a href="http://jfod.cnam.fr/progAvancee/Hennessy.pdf" target="_blank">livre
+de Hennessy</a>
+<p>
+Description d’une règle d’inférence : au dessus du trait les hypothèses
+à assurer<br> pour affirmer la conclusion en dessous du trait. Exemple
+la première règle ci dessous<br> peut se lire : au dessus du trait : “si
+dans le contexte de la mémoire M l’expression Expr est évaluée dans
+l’entier N” alors conclusion en dessous du trait :<br> “dans le même
+contexte M l’affection X = Exp modifie la mémoire tel que maintenant
+<br> M[X]=N
+</p>
+</td>
+</tr>
+<tr>
+<td>
+L’affectation : <strong>X=Exp</strong>. si avant exécution l’état de la
+Mémoire est M
+<ol>
+<li>
+Evaluation de Exp dans un entier N cf. question 1
+</li>
+<li>
+modification de la mémoire en X
+</li>
+</ol>
+<p>
+après exécution l’état de la Mémoire est M1 i.e. maintenant M[X]=N
+</p>
+</td>
+<td bgcolor="#ffffff">
+<p align="center">
+&lt;M&gt;,Exp -<strong>visite</strong>-&gt; N<br>
+___________________________<br> &lt;M&gt;, X = Exp
+-<strong>visite</strong>-&gt; <strong>&lt;</strong>M[X]=N&gt;
+</p>
+</td>
+</tr>
+<tr>
+<td>
+La sélection, <strong>si(Bexp)alorsI1 sinon I2 </strong>: si avant
+exécution l’état de la Mémoire est M
+<ol>
+<li>
+Evaluation de Bexp dans une valeur Booléenne
+</li>
+<li>
+Evaluation de I1 ou I2 selon la valeur trouvée en 1
+</li>
+</ol>
+<p>
+après exécution l’état de la Mémoire est M1 ou M2 selon 2.
+</p>
+<p>
+La sélection, <strong>si(Bexp)alorsI1</strong>: si avant exécution
+l’état de la Mémoire est M
+</p>
+<ol>
+<li>
+Evaluation de Bexp
+</li>
+<li>
+Evaluation de I1 ou “ne rien faire” selon la valeur trouvée en 1
+</li>
+</ol>
+<p>
+après exécution l’état de la Mémoire est M1 ou M  (inchangée) selon 2.
+</p>
+</td>
+<td bgcolor="#ffffff">
+<p align="center">
+&lt;M&gt;,Bexp -<strong>visite</strong>-&gt; vrai<br> &lt;M&gt;,I1
+-<strong>visite</strong>-&gt; M1<br>
+___________________________________<br> &lt;M&gt;,si(Bexp)alors I1 sinon
+I2-<strong>visite</strong>-&gt; &lt;M1&gt;
+</p>
+<p align="center">
+&lt;M&gt;,Bexp -<strong>visite</strong>-&gt; faux<br> &lt;M&gt;,I2
+-<strong>visite</strong>-&gt; M2<br>
+___________________________________<br>
+&lt;<strong>M</strong>&gt;,si(Bexp)alorsI1 sinon
+I2-<strong>visite</strong>-&gt; &lt;M2&gt;
+</p>
+</td>
+</tr>
+<tr>
+<td>
+La séquence : <strong>I1’;’I2 </strong>: si avant exécution l’état de la
+Mémoire est M
+<ol>
+<li>
+Evaluation de I1 qui transforme la mémoire M en la mémoire M1
+</li>
+<li>
+PUIS Evaluation de I2 à partir de M1 <br> donc qui qui transforme la
+mémoire M en la mémoire M2
+</li>
+</ol>
+<p>
+après exécution l’état de la Mémoire est M2.
+</p>
+</td>
+<td>
+<p align="center">
+&lt;M&gt;,I1 -<strong>visite</strong>-&gt; &lt;M1&gt;<br> &lt;M1&gt;,I2
+-<strong>visite</strong>-&gt; &lt;M2&gt;<br> ______________________<br>
+&lt;M&gt;,I1’;’I2-<strong>visite</strong>-&gt; &lt;M2&gt;
+</p>
+</td>
+</tr>
+<tr>
+<td>
+la boucle <strong>for (init,Bexp,inc) faire I1</strong>: si avant
+exécution l’état de la Mémoire est M
+<ol>
+<li>
+Se transforme en un appel à tantque 
+</li>
+</ol>
+</td>
+<td>
+<p align="center">
+<br> &lt;M&gt;,Init ‘;’ tantque(Bexp)faire
+I1;inc-<strong>visite</strong>-&gt; &lt;M1&gt;<br>
+_____________________________________<br>
+&lt;M&gt;,for(Init,Bexp,inc)faire I1-<strong>visite</strong>-&gt;
+&lt;M1&gt;
+</p>
+</td>
+</tr>
+<tr>
+<td>
+la boucle <strong>tantque (Bexp) faire I1</strong>: si avant exécution
+l’état de la Mémoire est M
+<ol>
+<li>
+Evaluation de Bexp
+</li>
+<li>
+si Bexp est évaluée à vrai alors Evaluation de <strong>I1’;’
+tantque(Bexp)faire I1</strong>
+</li>
+<li>
+si Bexp est évaluée à faux “ne rien faire”
+</li>
+</ol>
+</td>
+<td>
+<p align="center">
+&lt;M&gt;,Bexp -<strong>visite</strong>-&gt; faux<br>
+________________________________<br> &lt;M&gt;,tantque(Bexp) faire
+I1-<strong>visite</strong>-&gt; &lt;M&gt;
+</p>
+<p align="center">
+<br> &lt;M&gt;,Bexp -<strong>visite</strong>-&gt; vrai<br>
+&lt;M&gt;,I1’;’ tantque(Bexp)faire I1-<strong>visite</strong>-&gt;
+&lt;M1&gt;<br> _____________________________________<br>
+&lt;M&gt;,tantque(Bexp)faire I1-<strong>visite</strong>-&gt; &lt;M1&gt;
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><mark>Complétez les visiteurs</mark>
+<code>VisiteurInstEvaluation</code> et
+<code>VisiteurInstTojava</code>.</p>
+<p>Remarques :</p>
+<ul>
+<li>Servez-vous impérativement des règles d’évaluation ci-dessus pour
+implémenter le <code>VisiteurInstEvalution</code>, par exemple
+n’utilisez pas l’instruction <code>while</code>, ni <code>for</code> de
+java afin d’implémenter le <code>TantQue</code> de WhileL…</li>
+<li>Le visiteur <code>VisiteurToString</code> est complet.</li>
+<li>Le visiteur <code>VisiteurInstTojava</code> ne supporte pas le noeud
+<code>Factoriel</code>. En revanche le noeud <code>Afficher</code> est à
+implanter et peut servir dans les tests (voir plus bas).</li>
+</ul>
+<h3
+id="concernant-la-vérification-du-code-java-généré-par-visiteurinsttojava">Concernant
+la vérification du code java généré par
+<code>VisiteurInstTojava</code></h3>
+<p>Pour vérifier que le code obtenu avec <code>VisiteurInstTojava</code>
+est bien syntaxiquement correct, on utilisera le compilateur java
+lui-même.</p>
+<p>Vous pouvez le faire à la main pour expérimenter:</p>
+<ul>
+<li>copier le code généré dans la méthode <code>main</code> d’une classe
+<code>Exemple.java</code>.</li>
+<li>compiler en faisant <code>javac Exemple.java</code>; en principe il
+ne doit pas y avoir d’erreur de compilation ni de warning.</li>
+<li>vous pouvez ajouter des affichage dans la méthode main pour vérifier
+que le programme s’exécute correctement. Vous pouvez les ajouter via le
+noeud <code>Affichage</code>.</li>
+</ul>
+<p>Vous pouvez également utiliser la classe
+<code>question3.compilation.Classejava</code> qui permet:</p>
+<ul>
+<li>de compiler une chaine de caractère contenant une classe plutôt
+qu’un fichier.</li>
+<li>de charger le code compilé et de lancer la méthode <code>main</code>
+de la classe chargée.</li>
+<li>Vous pouvez également créer un type de noeud <code>Afficher</code>
+qui se compilera vers un appel à
+<code>System.out.println(uneValeur)</code> et provoquera donc un
+affichage.</li>
+<li>Encore mieux, vous pouvez utiliser le noeud <code>Assertion</code>
+pour générer des test qui léveront une exception en cas d’échec. De
+cette façon vous pouvez générer du code java qui se teste lui-même.</li>
+</ul>
+<p>Vous pouvez consulter les tests de la classe
+<code>TestsVisiteurToJava</code> pour vous en inspirer.</p>
+<hr>
+<h2 id="la-boucle-pour"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question3_2.png" />
+La boucle “Pour”</h2>
+<p>On a ajouté la boucle <strong>Pour</strong> au paquetage
+<code>question3</code> sur le modèle de la boucle <code>for</code> java
+(cf. classe <code>Pour</code>). Modifiez les visiteurs en
+conséquence.</p>
+<p><strong>Remarque</strong>:</p>
+<p><mark>Servez-vous de la règle d’évaluation ci-dessus pour
+implémenter</mark> le <code>VisiteurInstEvalution</code>, (n’utilisez
+pas le <code>for</code> de java afin d’implémenter le <code>Pour</code>
+de WhileL…)</p>
+<hr>
+<h2 id="les-classes-de-tests"><img
+src="https://deptmedia.cnam.fr/Cours/NFP121/tps/resources/images/question3_3.png" />
+Les classes de tests</h2>
+<p><mark> le bon fonctionnement des classes de Tests.</p>
+<hr>
+<h2 id="optionnel-les-visiteurs-et-la-génération-de-byte-code."><img
+src="images/postliminaire.png" /> Optionnel, les visiteurs et la
+génération de byte code.</h2>
+<p><mark>Aucune soumission n’est demandée</mark>. Dans ce postliminaire,
+trois visiteurs ont été développés afin de générer du bytecode
+(https://fr.wikipedia.org/wiki/Bytecode_Java) pour notre petit langage
+WhileL à destination d’une machine java.</p>
+<center>
+<img src="images/postliminaire_jasmin.jpg" />
+</center>
+<p>L’exécution des visiteurs engendre un code <a
+href="https://fr.wikipedia.org/wiki/Jasmin_(langage)">Jasmin</a>, qui
+est ensuite exécuté, cf. la classe de tests de ce paquetage.</p>
+<p>Optionnel: ajoutez votre exemple de génération de code à la classe de
+tests.</p>
+<p>Votre exemple sera ajouté à la classe de tests, pour vos
+successeurs…</p>
+<p>Liens utiles:</p>
+<p><a href="http://jfod.cnam.fr/NFP121/supports/extras_jvm.pdf">extra
+jvm</a></p>
+<p><a
+href="http://www-igm.univ-mlv.fr/~forax/ens/java-avance/cours/pdf/old/Generation%20de%20code%203.pdf">un
+cours</a></p>
+<p>un exemple:</p>
+<p>Le calcul du pgcd en java</p>
+<center>
+<img src="images/moz-screenshot.jpg" />
+</center>
+<p>Ce même calcul en WhileL</p>
+<center>
+<img src="images/moz-screenshot-2.jpg" />
+</center>
+<p>Ce même calcul en Jasmin (un extrait)</p>
+<center>
+<img src="images/moz-screenshot-3.jpg" />
+</center>
+<!--
+LocalWords:  Junit Git TP clonez gradle git l'énoncé Fahrenheit
+LocalWords:  Celsius FahrenheitCelsius tp JDK Windows hr i.e
+LocalWords:  runtime télécharger l'IHM error IHM center ihm.jar
+LocalWords:  celsius
+-->
+</body>
+</html>

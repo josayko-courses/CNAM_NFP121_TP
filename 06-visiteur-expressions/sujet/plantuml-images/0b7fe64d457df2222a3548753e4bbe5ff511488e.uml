@@ -1,0 +1,66 @@
+@startuml
+skinparam {
+  RoundCorner 10
+  Shadowing true
+  ArrowColor Black
+  ArrowFontSize 16
+  Padding 8
+  WrapWidth 1024
+  note {
+    BackgroundColor OldLace
+    BorderColor BurlyWood
+    FontSize 16
+  }
+  class {
+    BackgroundColor SandyBrown
+    BorderColor Black
+    FontSize 14
+  }
+  sequence {
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor White
+    MessageAlignment center
+    Participant {
+      BorderColor Black
+      BorderThickness 0.5
+      BackgroundColor White
+      FontSize 18
+    }
+  }
+}
+
+
+class Variable
+class Constante
+abstract class Binaire
+interface Expression
+
+object           constante3{
+    value = 3
+}
+object           constante8 {
+    value = 8
+}
+object           variablex {
+    name = "x"
+}
+object           addition
+object           mult
+mult *-- constante8
+mult *-- addition
+addition *-- constante3
+addition *-- variablex
+
+Constante <|.. constante8
+Constante <|.. constante3
+Variable  <|.. variablex
+Addition <|.. addition
+Binaire <|.. Addition
+Multiplication <|.. mult
+Binaire <|.. Multiplication
+
+Expression <|.. Variable
+Expression <|.. Binaire
+Expression <|.. Constante
+
+@enduml
