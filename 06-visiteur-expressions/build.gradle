@@ -1,0 +1,78 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+
+    // Apply the application plugin to add support for building an application
+    id 'application'
+}
+
+group = 'cnam.nfp121'
+version = '1.0'
+
+// java {
+//     toolchain {
+//         languageVersion = JavaLanguageVersion.of(17)
+//     }
+// }
+ sourceCompatibility = '17'
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenCentral()    
+}
+
+
+dependencies {
+    implementation 'org.apache.bcel:bcel:6.5.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+// Uncomment the following to :
+// a) use gradle run to start the software
+// b) build an executable jar
+
+// A mettre dans mark.gradle plutôt, puisqu'on essaie de maintenir un
+// build.gradle identique dans tous les projets.
+
+// mainClassName = 'main class'
+
+// Configuration pour le plugin java
+// jar {
+//    manifest {
+//        attributes "Main-Class": "${mainClassName}"
+//    }
+// }
+
+
+tasks.named('test', Test) {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
+
+
+// Attention si votre projet est ouvert par un IDE pendant que vous
+// faite 'gralde distClean' ça risque de mettre l'IDE dans un état
+// incohérent.
+task distClean {
+  dependsOn("clean")
+  group = 'distribution'
+  doLast {
+    delete "bin"
+    delete ".classpath"
+    delete ".gradle"
+    delete ".nb-gradle"
+    delete ".project"
+    delete ".settings"
+    delete ".vscode"
+    delete '.DS_Store'
+    delete '.idea'
+  }
+}
+// specifics of the TP
+apply from: 'mark.gradle'
+
+application {
+    mainClass = mainJavaClass
+}
+

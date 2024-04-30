@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="710px" preserveAspectRatio="none" style="width:475px;height:710px;" version="1.1" viewBox="0 0 475 710" width="475px" zoomAndPan="magnify"><defs><filter height="300%" id="f1q15o21yxtzj9" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[1e667c6ad6db7468aaf1f24fbbf1ec5d]
+class Variable--><rect fill="#F4A460" filter="url(#f1q15o21yxtzj9)" height="61.0679" id="Variable" rx="5" ry="5" style="stroke: #000000; stroke-width: 1.5;" width="103" x="6" y="129"/><ellipse cx="21" cy="151.534" fill="#ADD1B2" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><path d="M20.4688,158.4558 Q18.7188,158.4558 17.5781,157.7215 Q16.4531,156.9715 15.8906,155.6277 Q15.3438,154.2683 15.3438,152.4715 Q15.3438,150.4402 16,148.9871 Q16.6563,147.534 17.9375,146.7527 Q19.2188,145.9715 21.0938,145.9715 Q21.9844,145.9715 22.6563,146.159 Q23.3281,146.3308 24.0156,146.6746 L23.2031,148.6902 Q22.5781,148.3777 22.0313,148.2527 Q21.5,148.1277 21.0156,148.1277 Q19.8438,148.1277 19.1406,148.659 Q18.4375,149.1902 18.1406,150.1433 Q17.8438,151.0965 17.8438,152.3621 Q17.8438,154.3777 18.5625,155.3465 Q19.2813,156.2996 20.875,156.2996 Q21.4688,156.2996 22.0938,156.1433 Q22.7188,155.9871 23.5469,155.6121 L23.5469,157.8308 Q22.8125,158.1433 22.0156,158.2996 Q21.2344,158.4558 20.4688,158.4558 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="55" x="43" y="156.9659">Variable</text><line style="stroke: #000000; stroke-width: 1.5;" x1="7" x2="108" y1="174.0679" y2="174.0679"/><line style="stroke: #000000; stroke-width: 1.5;" x1="7" x2="108" y1="182.0679" y2="182.0679"/><!--MD5=[4f690aa9c8cbc9d2fcd8ae473aedfe2c]
+class Constante--><rect fill="#F4A460" filter="url(#f1q15o21yxtzj9)" height="61.0679" id="Constante" rx="5" ry="5" style="stroke: #000000; stroke-width: 1.5;" width="116" x="348.5" y="371"/><ellipse cx="363.5" cy="393.534" fill="#ADD1B2" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><path d="M362.9688,400.4558 Q361.2188,400.4558 360.0781,399.7215 Q358.9531,398.9715 358.3906,397.6277 Q357.8438,396.2683 357.8438,394.4715 Q357.8438,392.4402 358.5,390.9871 Q359.1563,389.534 360.4375,388.7527 Q361.7188,387.9715 363.5938,387.9715 Q364.4844,387.9715 365.1563,388.159 Q365.8281,388.3308 366.5156,388.6746 L365.7031,390.6902 Q365.0781,390.3777 364.5313,390.2527 Q364,390.1277 363.5156,390.1277 Q362.3438,390.1277 361.6406,390.659 Q360.9375,391.1902 360.6406,392.1433 Q360.3438,393.0965 360.3438,394.3621 Q360.3438,396.3777 361.0625,397.3465 Q361.7813,398.2996 363.375,398.2996 Q363.9688,398.2996 364.5938,398.1433 Q365.2188,397.9871 366.0469,397.6121 L366.0469,399.8308 Q365.3125,400.1433 364.5156,400.2996 Q363.7344,400.4558 362.9688,400.4558 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="68" x="385.5" y="398.9659">Constante</text><line style="stroke: #000000; stroke-width: 1.5;" x1="349.5" x2="463.5" y1="416.0679" y2="416.0679"/><line style="stroke: #000000; stroke-width: 1.5;" x1="349.5" x2="463.5" y1="424.0679" y2="424.0679"/><!--MD5=[0c782468c709f680bbbcfd3912459dc5]
+class Binaire--><rect fill="#F4A460" filter="url(#f1q15o21yxtzj9)" height="61.0679" id="Binaire" rx="5" ry="5" style="stroke: #000000; stroke-width: 1.5;" width="93" x="177" y="129"/><ellipse cx="192" cy="151.534" fill="#A9DCDF" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><path d="M187.1719,157.284 L190.5156,145.0965 L193.6563,145.0965 L197.0313,157.284 L194.5625,157.284 L193.8281,154.2683 L190.3125,154.2683 L189.5625,157.284 L187.1719,157.284 Z M191.5781,149.2371 L190.8281,152.2371 L193.3438,152.2371 L192.625,149.2371 Q192.4844,148.659 192.3594,148.1121 Q192.2344,147.5496 192.0938,146.9715 Q191.9844,147.5496 191.8438,148.1121 Q191.7031,148.659 191.5781,149.2371 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="45" x="214" y="156.9659">Binaire</text><line style="stroke: #000000; stroke-width: 1.5;" x1="178" x2="269" y1="174.0679" y2="174.0679"/><line style="stroke: #000000; stroke-width: 1.5;" x1="178" x2="269" y1="182.0679" y2="182.0679"/><!--MD5=[3637e2e3ff64f8c7ec072f5df5e3a1dc]
+class Expression--><rect fill="#F4A460" filter="url(#f1q15o21yxtzj9)" height="61.0679" id="Expression" rx="5" ry="5" style="stroke: #000000; stroke-width: 1.5;" width="115" x="166" y="8"/><ellipse cx="181" cy="30.534" fill="#B4A7E5" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><path d="M177.0313,37.034 L177.0313,35.3308 L179.3906,35.0652 L179.3906,26.8621 L177.0313,26.5965 L177.0313,24.8933 L184.1719,24.8933 L184.1719,26.5965 L181.75,26.8621 L181.75,35.0652 L184.1719,35.3308 L184.1719,37.034 L177.0313,37.034 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="67" x="203" y="35.9659">Expression</text><line style="stroke: #000000; stroke-width: 1.5;" x1="167" x2="280" y1="53.0679" y2="53.0679"/><line style="stroke: #000000; stroke-width: 1.5;" x1="167" x2="280" y1="61.0679" y2="61.0679"/><rect fill="#FEFECE" filter="url(#f1q15o21yxtzj9)" height="73.9641" rx="5" ry="5" style="stroke: #A80036; stroke-width: 1.5;" width="92" x="227.5" y="626"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="242.5" y="648.8281">constante3</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="228.5" x2="318.5" y1="662.3441" y2="662.3441"/><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="44" x="241.5" y="685.0341">value = 3</text><rect fill="#FEFECE" filter="url(#f1q15o21yxtzj9)" height="73.9641" rx="5" ry="5" style="stroke: #A80036; stroke-width: 1.5;" width="92" x="245.5" y="492"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="62" x="260.5" y="514.8281">constante8</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="246.5" x2="336.5" y1="528.3441" y2="528.3441"/><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="44" x="259.5" y="551.0341">value = 8</text><rect fill="#FEFECE" filter="url(#f1q15o21yxtzj9)" height="73.9641" rx="5" ry="5" style="stroke: #A80036; stroke-width: 1.5;" width="81" x="37" y="626"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="51" x="52" y="648.8281">variablex</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="38" x2="117" y1="662.3441" y2="662.3441"/><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="52" x="51" y="685.0341">name = "x"</text><rect fill="#FEFECE" filter="url(#f1q15o21yxtzj9)" height="52.3441" rx="5" ry="5" style="stroke: #A80036; stroke-width: 1.5;" width="75" x="105" y="503"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="45" x="120" y="525.8281">addition</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="106" x2="179" y1="539.3441" y2="539.3441"/><rect fill="#FEFECE" filter="url(#f1q15o21yxtzj9)" height="52.3441" rx="5" ry="5" style="stroke: #A80036; stroke-width: 1.5;" width="55" x="258" y="375.5"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="25" x="273" y="398.3281">mult</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="259" x2="312" y1="411.8441" y2="411.8441"/><!--MD5=[4e916b5516e51ac6308a192ab863475a]
+class Addition--><rect fill="#F4A460" filter="url(#f1q15o21yxtzj9)" height="61.0679" id="Addition" rx="5" ry="5" style="stroke: #000000; stroke-width: 1.5;" width="105" x="78" y="250"/><ellipse cx="93" cy="272.534" fill="#ADD1B2" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><path d="M92.4688,279.4558 Q90.7188,279.4558 89.5781,278.7215 Q88.4531,277.9715 87.8906,276.6277 Q87.3438,275.2683 87.3438,273.4715 Q87.3438,271.4402 88,269.9871 Q88.6563,268.534 89.9375,267.7527 Q91.2188,266.9715 93.0938,266.9715 Q93.9844,266.9715 94.6563,267.159 Q95.3281,267.3308 96.0156,267.6746 L95.2031,269.6902 Q94.5781,269.3777 94.0313,269.2527 Q93.5,269.1277 93.0156,269.1277 Q91.8438,269.1277 91.1406,269.659 Q90.4375,270.1902 90.1406,271.1433 Q89.8438,272.0965 89.8438,273.3621 Q89.8438,275.3777 90.5625,276.3465 Q91.2813,277.2996 92.875,277.2996 Q93.4688,277.2996 94.0938,277.1433 Q94.7188,276.9871 95.5469,276.6121 L95.5469,278.8308 Q94.8125,279.1433 94.0156,279.2996 Q93.2344,279.4558 92.4688,279.4558 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="57" x="115" y="277.9659">Addition</text><line style="stroke: #000000; stroke-width: 1.5;" x1="79" x2="182" y1="295.0679" y2="295.0679"/><line style="stroke: #000000; stroke-width: 1.5;" x1="79" x2="182" y1="303.0679" y2="303.0679"/><!--MD5=[a80aeb25cfca85a61c4213d8f76e28b6]
+class Multiplication--><rect fill="#F4A460" filter="url(#f1q15o21yxtzj9)" height="61.0679" id="Multiplication" rx="5" ry="5" style="stroke: #000000; stroke-width: 1.5;" width="141" x="218" y="250"/><ellipse cx="233" cy="272.534" fill="#ADD1B2" rx="11" ry="11" style="stroke: #000000; stroke-width: 1.0;"/><path d="M232.4688,279.4558 Q230.7188,279.4558 229.5781,278.7215 Q228.4531,277.9715 227.8906,276.6277 Q227.3438,275.2683 227.3438,273.4715 Q227.3438,271.4402 228,269.9871 Q228.6563,268.534 229.9375,267.7527 Q231.2188,266.9715 233.0938,266.9715 Q233.9844,266.9715 234.6563,267.159 Q235.3281,267.3308 236.0156,267.6746 L235.2031,269.6902 Q234.5781,269.3777 234.0313,269.2527 Q233.5,269.1277 233.0156,269.1277 Q231.8438,269.1277 231.1406,269.659 Q230.4375,270.1902 230.1406,271.1433 Q229.8438,272.0965 229.8438,273.3621 Q229.8438,275.3777 230.5625,276.3465 Q231.2813,277.2996 232.875,277.2996 Q233.4688,277.2996 234.0938,277.1433 Q234.7188,276.9871 235.5469,276.6121 L235.5469,278.8308 Q234.8125,279.1433 234.0156,279.2996 Q233.2344,279.4558 232.4688,279.4558 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="93" x="255" y="277.9659">Multiplication</text><line style="stroke: #000000; stroke-width: 1.5;" x1="219" x2="358" y1="295.0679" y2="295.0679"/><line style="stroke: #000000; stroke-width: 1.5;" x1="219" x2="358" y1="303.0679" y2="303.0679"/><!--MD5=[46110a8f1f4b18c190d8c048593cf600]
+reverse link mult to constante8--><path d="M287.34,440.95 C288.11,457.05 289,475.66 289.76,491.53 " fill="none" id="mult&lt;-constante8" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="286.7,427.6,282.9948,433.7864,287.2802,439.586,290.9854,433.3996,286.7,427.6" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[5d0404ac074689fc5c690e6fb9ae3b15]
+reverse link mult to addition--><path d="M248.12,435.31 C224.17,456.32 193.56,483.19 171.46,502.58 " fill="none" id="mult&lt;-addition" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="257.93,426.7,250.7817,427.6496,248.9089,434.6133,256.0572,433.6637,257.93,426.7" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[d1998e73cb3a3961b6c853b40a997bdb]
+reverse link addition to constante3--><path d="M176.81,564.57 C195.56,583.47 218.78,606.86 237.76,625.98 " fill="none" id="addition&lt;-constante3" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="167.45,555.14,168.8367,562.2165,175.9023,563.6582,174.5155,556.5817,167.45,555.14" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[d9c44942fb77adeca4ce3c7484027e16]
+reverse link addition to variablex--><path d="M124.31,566.93 C115.22,585.39 104.26,607.65 95.24,625.98 " fill="none" id="addition&lt;-variablex" style="stroke: #000000; stroke-width: 1.0;"/><polygon fill="#000000" points="130.12,555.14,123.8802,558.7546,124.8169,565.9046,131.0566,562.29,130.12,555.14" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[8d52c2ed561ea783a2e9836901e87b5d]
+reverse link Constante to constante8--><path d="M365.41,447.34 C352.06,461.91 337.42,477.89 324.71,491.76 " fill="none" id="Constante&lt;-constante8" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="360.57,442.26,379.25,432.24,370.9,451.72,360.57,442.26" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[cd97f28c613d85e32fbf7d0b6e850b55]
+reverse link Constante to constante3--><path d="M396.14,452.01 C387.85,485.54 374.31,530.11 354.5,566 C342.59,587.57 325.41,608.81 309.94,625.8 " fill="none" id="Constante&lt;-constante3" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="389.38,450.15,400.73,432.25,403.02,453.32,389.38,450.15" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[828c4126677a45dac0893582f5ab7a22]
+reverse link Variable to variablex--><path d="M58.14,210.32 C58.6,239.63 59.35,277.43 60.5,311 C64.43,426.09 71.81,562.28 75.41,625.89 " fill="none" id="Variable&lt;-variablex" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="51.14,210.31,57.84,190.2,65.14,210.1,51.14,210.31" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[8321373e25b29f32557d5d3603be84a8]
+reverse link Addition to addition--><path d="M132.93,331.33 C135.46,383.36 139.33,462.87 141.28,502.99 " fill="none" id="Addition&lt;-addition" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="125.93,331.55,131.95,311.23,139.91,330.87,125.93,331.55" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[a7078958091ede27520530a4934dad3f]
+reverse link Binaire to Addition--><path d="M187.9,206.05 C176.46,220.69 164.08,236.54 153.75,249.74 " fill="none" id="Binaire&lt;-Addition" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="182.44,201.67,200.27,190.22,193.47,210.29,182.44,201.67" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[063546a8765769f61c6e3845c3177229]
+reverse link Multiplication to mult--><path d="M287.25,331.27 C286.86,346.4 286.46,362.38 286.14,375.18 " fill="none" id="Multiplication&lt;-mult" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="280.25,331.04,287.75,311.22,294.24,331.39,280.25,331.04" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[fa5af2f4d69781910538442af694fc59]
+reverse link Binaire to Multiplication--><path d="M249.41,207.94 C257.12,222.05 265.34,237.1 272.25,249.74 " fill="none" id="Binaire&lt;-Multiplication" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="243.18,211.13,239.73,190.22,255.47,204.42,243.18,211.13" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[c5f33cf5edefd86870707b9f141c3068]
+reverse link Expression to Variable--><path d="M165.78,80.88 C143.69,96.71 118.96,114.44 98.72,128.95 " fill="none" id="Expression&lt;-Variable" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="161.71,75.19,182.04,69.22,169.86,86.56,161.71,75.19" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[059cab8b3fd823b0ea4816a594f9443b]
+reverse link Expression to Binaire--><path d="M223.5,89.33 C223.5,102.73 223.5,116.81 223.5,128.74 " fill="none" id="Expression&lt;-Binaire" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="216.5,89.22,223.5,69.22,230.5,89.22,216.5,89.22" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[07c66e9942106b6c78a615d8a96ac5e1]
+reverse link Expression to Constante--><path d="M265.14,84.39 C300.22,124.72 348.97,187.11 376.5,250 C393.86,289.66 401.27,339.61 404.37,370.81 " fill="none" id="Expression&lt;-Constante" style="stroke: #000000; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="259.78,88.9,251.74,69.29,270.25,79.6,259.78,88.9" style="stroke: #000000; stroke-width: 1.0;"/><!--MD5=[c194c10d2ee18e0119ba1b1ad0f921a0]
+@startuml
+skinparam {
+  RoundCorner 10
+  Shadowing true
+  ArrowColor Black
+  ArrowFontSize 16
+  Padding 8
+  WrapWidth 1024
+  note {
+    BackgroundColor OldLace
+    BorderColor BurlyWood
+    FontSize 16
+  }
+  class {
+    BackgroundColor SandyBrown
+    BorderColor Black
+    FontSize 14
+  }
+  sequence {
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor White
+    MessageAlignment center
+    Participant {
+      BorderColor Black
+      BorderThickness 0.5
+      BackgroundColor White
+      FontSize 18
+    }
+  }
+}
+
+
+class Variable
+class Constante
+abstract class Binaire
+interface Expression
+
+object           constante3{
+    value = 3
+}
+object           constante8 {
+    value = 8
+}
+object           variablex {
+    name = "x"
+}
+object           addition
+object           mult
+mult *- - constante8
+mult *- - addition
+addition *- - constante3
+addition *- - variablex
+
+Constante <|.. constante8
+Constante <|.. constante3
+Variable  <|.. variablex
+Addition <|.. addition
+Binaire <|.. Addition
+Multiplication <|.. mult
+Binaire <|.. Multiplication
+
+Expression <|.. Variable
+Expression <|.. Binaire
+Expression <|.. Constante
+
+@enduml
+
+PlantUML version 1.2020.02(Sun Mar 01 11:22:07 CET 2020)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 11.0.17+8
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
