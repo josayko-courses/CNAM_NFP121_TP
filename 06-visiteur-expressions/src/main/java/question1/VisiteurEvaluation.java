@@ -13,24 +13,19 @@ package question1;
 // redéfini toutes les méthodes. Si comme ici on veut redéfinir toutes
 // les méthodes visite, il est donc préférable de remplacer ce extends
 // par extends VisiteurExpression.
-public class VisiteurEvaluation extends VisiteurParDefaut<Integer> {
+public class VisiteurEvaluation extends VisiteurExpression<Integer> {
   private Contexte c;
 
   public VisiteurEvaluation(Contexte c) {
     this.c = c;
   }
 
-  public Contexte contexte() {
-    return c;
-  }
-
   public Integer visite(Constante c) {
     return c.valeur();
   }
 
-  // Compléter 
   public Integer visite(Variable v) {
-    return v.accepter(this);
+    return this.c.lire(v.nom());
   }
 
   public Integer visite(FonctionJava f) {
@@ -38,7 +33,7 @@ public class VisiteurEvaluation extends VisiteurParDefaut<Integer> {
   }
 
   public Integer visite(Division d) {
-    return  d.op1().accepter(this) / d.op2().accepter(this);
+    return d.op1().accepter(this) / d.op2().accepter(this);
   }
 
   public Integer visite(Addition a) {
@@ -54,10 +49,18 @@ public class VisiteurEvaluation extends VisiteurParDefaut<Integer> {
   }
 
   public Integer visite(Moins s) {
-    return s.op().accepter(this);
+    return -(s.op().accepter(this));
   }
 
   public Integer visite(Factoriel s) {
-    return s.op().accepter(this);
+    Integer n = s.op().accepter(this);
+    if (n <= 0)
+      return 1;
+    else
+      return (n * this.visite(new Factoriel(new Constante(n - 1))));
+  }
+
+  public Contexte contexte() {
+    return c;
   }
 }

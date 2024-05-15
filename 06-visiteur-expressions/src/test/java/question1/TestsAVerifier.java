@@ -32,6 +32,8 @@ public class TestsAVerifier {
     assertEquals(5, m.lire("j").intValue(), m + "lecture mémoire ?, j==5 ?");
     Expression expr = new Constante(3);
     assertEquals(3, expr.accepter(ve).intValue(), " une Constante : 3 ?");
+    // TODO
+    assertEquals(3, expr.accepter(ve).intValue(), " une Constante : 3 ?");
   }
 
   @Test
@@ -39,6 +41,8 @@ public class TestsAVerifier {
     assertEquals(3, m.lire("i").intValue(), m + "lecture mémoire ?, i==3 ?");
     assertEquals(5, m.lire("j").intValue(), m + "lecture mémoire ?, j==5 ?");
     m.ecrire("z", 10);
+    assertEquals(10, m.lire("z").intValue(), m + "écriture mémoire ?, z==10 ?");
+    // TODO
     assertEquals(10, m.lire("z").intValue(), m + "écriture mémoire ?, z==10 ?");
   }
 

@@ -98,7 +98,8 @@ public class MarkVisiteur {
     test.testDivision();
   }
 
-  // Le test de division par séro ci-dessus doit rester visible aux étudiants: il est cité dans
+  // Le test de division par séro ci-dessus doit rester visible aux étudiants: il
+  // est cité dans
   // le sujet pour illustrer le comportement attendu.
   @Test
   public void testDivision2() {
