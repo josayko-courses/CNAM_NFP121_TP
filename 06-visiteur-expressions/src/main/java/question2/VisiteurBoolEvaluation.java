@@ -10,34 +10,40 @@ public class VisiteurBoolEvaluation extends VisiteurExpressionBooleenne<Boolean>
   }
 
   public Boolean visite(Vrai v) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return true;
   }
 
   public Boolean visite(Faux f) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return false;
   }
 
   public Boolean visite(Non n) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return !n.bop().accepter(this);
   }
 
   public Boolean visite(Ou ou) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return ou.bop1().accepter(this) || ou.bop2().accepter(this);
   }
 
   public Boolean visite(Et et) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return et.bop1().accepter(this) && et.bop2().accepter(this);
   }
 
   public Boolean visite(Sup sup) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    Integer exp1 = sup.op1().accepter(ve);
+    Integer exp2 = sup.op2().accepter(ve);
+    return exp1 > exp2;
   }
 
   public Boolean visite(Egal eg) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    Integer exp1 = eg.op1().accepter(ve);
+    Integer exp2 = eg.op2().accepter(ve);
+    return exp1 == exp2;
   }
 
   public Boolean visite(Inf inf) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    Integer exp1 = inf.op1().accepter(ve);
+    Integer exp2 = inf.op2().accepter(ve);
+    return exp1 < exp2;
   }
 }
