@@ -10,34 +10,34 @@ public class VisiteurBoolToJava extends VisiteurExpressionBooleenne<String> {
   }
 
   public String visite(Vrai v) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "true";
   }
 
   public String visite(Faux f) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "false";
   }
 
   public String visite(Non n) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "!" + n.bop().accepter(this);
   }
 
   public String visite(Ou ou) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "(" + ou.bop1().accepter(this) + " || " + ou.bop2().accepter(this) + ")";
   }
 
   public String visite(Et et) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "(" + et.bop1().accepter(this) + " && " + et.bop2().accepter(this) + ")";
   }
 
   public String visite(Sup sup) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "(" + sup.op1().accepter(ve) + " > " + sup.op2().accepter(ve) + ")";
   }
 
   public String visite(Egal eg) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "(" + eg.op1().accepter(ve) + " == " + eg.op2().accepter(ve) + ")";
   }
 
   public String visite(Inf inf) {
-    throw new RuntimeException("Pas_encore_implante"); // REMPLIR ICI
+    return "(" + inf.op1().accepter(ve) + " < " + inf.op2().accepter(ve) + ")";
   }
 }
